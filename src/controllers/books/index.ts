@@ -79,9 +79,28 @@ const readBookById = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const readBookByName = (req: Request, res: Response) => {
+  const bookName = req.params.name;
+
+  if (!bookName) {
+    return badRequest(res, "Invalid book name.");
+  }
+
+  bookModel
+    .readBookByName(bookName)
+    .then((book) => {
+      if (!book) {
+        return notFound(res, "Book not found.");
+      }
+      res.json(book);
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const bookController = {
   insertBook,
   updateBook,
   deleteBook,
   readBookById,
+  readBookByName,
 };

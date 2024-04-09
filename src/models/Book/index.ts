@@ -67,9 +67,23 @@ export const readBookById = async (
   return undefined;
 };
 
+export const readBookByName = async (
+  bookName: string
+): Promise<Book | undefined> => {
+  const query = "SELECT * FROM book WHERE title = ?";
+  const result = await dbQuery(query, [bookName]);
+
+  if (Array.isArray(result) && result.length > 0) {
+    return result[0] as Book;
+  }
+
+  return undefined;
+};
+
 export const bookModel = {
   insertBook,
   updateBook,
   deleteBook,
   readBookById,
+  readBookByName,
 };
