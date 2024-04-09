@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { badRequest, internalServerError } from "../../utils/errors";
+import { badRequest, internalServerError, notFound } from "../../utils/errors";
 import { bookModel } from "../../models/Book";
 import { Book } from "../../models/Book/types";
 
@@ -61,8 +61,27 @@ const deleteBook = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const readBookById = (req: Request, res: Response) => {
+  const bookId = parseInt(req.params.id);
+
+  if (!bookId) {
+    return badRequest(res, "Invalid book ID.");
+  }
+
+  bookModel
+    .readBookById(bookId)
+    .then((book) => {
+      if (!book) {
+        return notFound(res, "Book not found.");
+      }
+      res.json(book);
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const bookController = {
   insertBook,
   updateBook,
   deleteBook,
+  readBookById,
 };

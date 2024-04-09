@@ -54,8 +54,22 @@ export const deleteBook = async (bookId: number) => {
   await dbQuery(deleteQuery, deleteParams);
 };
 
+export const readBookById = async (
+  bookId: number
+): Promise<Book | undefined> => {
+  const query = "SELECT * FROM book WHERE id = ?";
+  const result = await dbQuery(query, [bookId]);
+
+  if (Array.isArray(result) && result.length > 0) {
+    return result[0] as Book;
+  }
+
+  return undefined;
+};
+
 export const bookModel = {
   insertBook,
   updateBook,
   deleteBook,
+  readBookById,
 };
