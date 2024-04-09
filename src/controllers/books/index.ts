@@ -30,6 +30,23 @@ const insertBook = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const updateBook = (req: Request, res: Response) => {
+  const bookId = parseInt(req.params.id);
+  const updates = req.body as Partial<Book>;
+
+  if (!bookId || !updates) {
+    return badRequest(res, "Invalid book ID or updates.");
+  }
+
+  bookModel
+    .updateBook(bookId, updates)
+    .then(() => {
+      res.json({ message: "Book updated successfully." });
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const bookController = {
   insertBook,
+  updateBook,
 };
