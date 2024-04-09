@@ -46,7 +46,23 @@ const updateBook = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const deleteBook = (req: Request, res: Response) => {
+  const bookId = parseInt(req.params.id);
+
+  if (!bookId) {
+    return badRequest(res, "Invalid book ID.");
+  }
+
+  bookModel
+    .deleteBook(bookId)
+    .then(() => {
+      res.json({ message: "Book deleted successfully." });
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const bookController = {
   insertBook,
   updateBook,
+  deleteBook,
 };

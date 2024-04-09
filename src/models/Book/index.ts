@@ -47,7 +47,15 @@ export const updateBook = async (bookId: number, updates: Partial<Book>) => {
   await dbQuery(updateQuery, updateParams);
 };
 
+export const deleteBook = async (bookId: number) => {
+  const deleteParams: any[] = [bookId];
+  const deleteQuery = "DELETE FROM book WHERE id = ?";
+
+  await dbQuery(deleteQuery, deleteParams);
+};
+
 export const bookModel = {
   insertBook,
   updateBook,
+  deleteBook,
 };
