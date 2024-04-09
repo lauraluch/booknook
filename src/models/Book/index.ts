@@ -18,6 +18,36 @@ export const insertBook = async (book: Book) => {
   return undefined;
 };
 
+export const updateBook = async (bookId: number, updates: Partial<Book>) => {
+  const { readAt, finished, favorite } = updates;
+
+  const updateParams: any[] = [];
+  let updateQuery = "UPDATE book SET";
+
+  if (readAt !== undefined) {
+    updateQuery += " readAt = ?,";
+    updateParams.push(readAt);
+  }
+
+  if (finished !== undefined) {
+    updateQuery += " finished = ?,";
+    updateParams.push(finished);
+  }
+
+  if (favorite !== undefined) {
+    updateQuery += " favorite = ?,";
+    updateParams.push(favorite);
+  }
+
+  updateQuery = updateQuery.slice(0, -1);
+
+  updateQuery += " WHERE id = ?";
+  updateParams.push(bookId);
+
+  await dbQuery(updateQuery, updateParams);
+};
+
 export const bookModel = {
   insertBook,
+  updateBook,
 };
