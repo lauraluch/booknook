@@ -1,4 +1,5 @@
 import { dbQuery } from "../../services/db";
+import { Book } from "../Book/types";
 import { User } from "./types";
 
 export const insertUser = async (user: User) => {
@@ -61,7 +62,6 @@ export const readUserById = async (
   return undefined;
 };
 
-// Verificar se funciona o envio do nome utilizando =
 export const readUserByUsername = async (
   bookName: string
 ): Promise<User | undefined> => {
@@ -88,10 +88,18 @@ export const readUserPasswordByUsername = async (
   return undefined;
 };
 
+const readAllBooksFromUser = async (userId: number): Promise<Book[]> => {
+  const query = "SELECT * FROM book WHERE user_id = ?";
+  const result = await dbQuery(query, [userId]);
+
+  return result as Book[];
+};
+
 export const userModel = {
   insertUser,
   updateUser,
   readUserById,
   readUserByUsername,
   readUserPasswordByUsername,
+  readAllBooksFromUser,
 };
