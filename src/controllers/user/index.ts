@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { badRequest, internalServerError, notFound } from "../../utils/errors";
 import { User } from "../../models/User/types";
-import { userModel } from "../../models/User";
+import { readUserPasswordByUsername, userModel } from "../../models/User";
 
 const insertUser = (req: Request, res: Response) => {
   {
@@ -88,27 +88,51 @@ const readUserByUsername = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
-const validateUser = (req: Request, res: Response) => {
+// export const validateUser = (req: Request, res: Response) => {
+//   const { username, password } = req.body;
+
+//   if (!username || !password) {
+//     return badRequest(res, "Invalid username or password.");
+//   }
+
+//   userModel
+//     .readUserByUsername(username)
+//     .then((user) => {
+//       if (!user) {
+//         return notFound(res, "User not found.");
+//       }
+
+//       if (user.password !== password) {
+//         return res.status(401).json({ message: "Invalid password." });
+//       }
+
+//       res.status(200).json({ message: "Login successful." });
+//     })
+//     .catch((err) => internalServerError(res, err));
+// };
+
+export const validateUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
-  if (!username || !password) {
-    return badRequest(res, "Invalid username or password.");
+  try {
+    if (!username || !password) {
+      return badRequest(res, "Invalid username or password.");
+    }
+
+    const storedPassword = await readUserPasswordByUsername(username);
+
+    if (!storedPassword) {
+      return notFound(res, "User not found.");
+    }
+
+    if (password !== storedPassword) {
+      return res.status(401).json({ message: "Invalid password." });
+    }
+
+    res.status(200).json({ message: "Login successful." });
+  } catch (err) {
+    internalServerError(res, err as any);
   }
-
-  userModel
-    .readUserByUsername(username)
-    .then((user) => {
-      if (!user) {
-        return notFound(res, "User not found.");
-      }
-
-      if (user.password !== password) {
-        return res.status(401).json({ message: "Invalid password." });
-      }
-
-      res.status(200).json({ message: "Login successful." });
-    })
-    .catch((err) => internalServerError(res, err));
 };
 
 export const userController = {
