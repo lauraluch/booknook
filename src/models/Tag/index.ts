@@ -2,9 +2,10 @@ import { dbQuery } from "../../services/db";
 import { Tag } from "./types";
 
 export const insertTag = async (tag: Tag) => {
-  await dbQuery("INSERT INTO booktag (title, color) VALUES(?, ?)", [
+  await dbQuery("INSERT INTO booktag (title, color, user_id) VALUES(?, ?, ?)", [
     tag.title,
     tag.color,
+    tag.user_id,
   ]);
 
   const actionReturn = await dbQuery(
