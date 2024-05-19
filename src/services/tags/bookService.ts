@@ -1,5 +1,5 @@
-import { dbQuery } from "../../services/db";
-import { Book } from "./types";
+import { Book } from "../../models/bookModel";
+import { dbQuery } from "../../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
   await dbQuery(
@@ -80,7 +80,7 @@ export const readBookByName = async (
   return undefined;
 };
 
-export const bookModel = {
+export const bookService = {
   insertBook,
   updateBook,
   deleteBook,

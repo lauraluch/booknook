@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
-import { badRequest, internalServerError, notFound } from "../../utils/errors";
-import { User } from "../../models/User/types";
-import { readUserPasswordByUsername, userModel } from "../../models/User";
+import { badRequest, internalServerError, notFound } from "../utils/errors";
+import { User } from "../models/userModel";
+import {
+  readUserPasswordByUsername,
+  userService,
+} from "../services/tags/userService";
 
 const insertUser = (req: Request, res: Response) => {
   {
@@ -25,7 +28,7 @@ const insertUser = (req: Request, res: Response) => {
   }
 
   const user = req.body as User;
-  userModel
+  userService
     .insertUser(user)
     .then((id) => {
       res.json({
@@ -43,7 +46,7 @@ const updateUser = (req: Request, res: Response) => {
     return badRequest(res, "Invalid user ID or updates.");
   }
 
-  userModel
+  userService
     .updateUser(userId, updates)
     .then(() => {
       res.json({ message: "User updated successfully." });
@@ -58,7 +61,7 @@ const readUserById = (req: Request, res: Response) => {
     return badRequest(res, "Invalid user ID.");
   }
 
-  userModel
+  userService
     .readUserById(userId)
     .then((user) => {
       if (!user) {
@@ -77,7 +80,7 @@ const readUserByUsername = (req: Request, res: Response) => {
     return badRequest(res, "Invalid username.");
   }
 
-  userModel
+  userService
     .readUserByUsername(username)
     .then((user) => {
       if (!user) {
@@ -119,7 +122,7 @@ const readAllBooksFromUser = (req: Request, res: Response) => {
     return badRequest(res, "Invalid user ID.");
   }
 
-  userModel
+  userService
     .readAllBooksFromUser(userId)
     .then((user) => {
       if (!user) {

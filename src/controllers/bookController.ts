@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { badRequest, internalServerError, notFound } from "../../utils/errors";
-import { bookModel } from "../../models/Book";
-import { Book } from "../../models/Book/types";
+import { badRequest, internalServerError, notFound } from "../utils/errors";
+import { Book } from "../models/bookModel";
+import { bookService } from "../services/tags/bookService";
 
 const insertBook = (req: Request, res: Response) => {
   {
@@ -20,7 +20,7 @@ const insertBook = (req: Request, res: Response) => {
   }
 
   const book = req.body as Book;
-  bookModel
+  bookService
     .insertBook(book)
     .then((id) => {
       res.json({
@@ -38,7 +38,7 @@ const updateBook = (req: Request, res: Response) => {
     return badRequest(res, "Invalid book ID or updates.");
   }
 
-  bookModel
+  bookService
     .updateBook(bookId, updates)
     .then(() => {
       res.json({ message: "Book updated successfully." });
@@ -53,7 +53,7 @@ const deleteBook = (req: Request, res: Response) => {
     return badRequest(res, "Invalid book ID.");
   }
 
-  bookModel
+  bookService
     .deleteBook(bookId)
     .then(() => {
       res.json({ message: "Book deleted successfully." });
@@ -68,7 +68,7 @@ const readBookById = (req: Request, res: Response) => {
     return badRequest(res, "Invalid book ID.");
   }
 
-  bookModel
+  bookService
     .readBookById(bookId)
     .then((book) => {
       if (!book) {
@@ -86,7 +86,7 @@ const readBookByName = (req: Request, res: Response) => {
     return badRequest(res, "Invalid book name.");
   }
 
-  bookModel
+  bookService
     .readBookByName(bookName)
     .then((book) => {
       if (!book) {

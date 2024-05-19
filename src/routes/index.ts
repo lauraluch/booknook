@@ -1,9 +1,9 @@
 import { Application } from "express";
 import { Router } from "express";
-import { bookRouter } from "./books";
-import { userRouter } from "./users";
-import { authRouter } from "./auth";
-import { tagRouter } from "./tags";
+import { bookRouter } from "./bookRoutes";
+import { userRouter } from "./userRoutes";
+import { authRouter } from "./authRoutes";
+import { tagRouter } from "./tagRoutes";
 
 export const useRoutes = (app: Application) => {
   const apiRouter = Router();

@@ -1,6 +1,6 @@
-import { dbQuery } from "../../services/db";
-import { Book } from "../Book/types";
-import { User } from "./types";
+import { Book } from "../../models/bookModel";
+import { User } from "../../models/userModel";
+import { dbQuery } from "../../repository/dbConnection";
 
 export const insertUser = async (user: User) => {
   await dbQuery(
@@ -95,7 +95,7 @@ const readAllBooksFromUser = async (userId: number): Promise<Book[]> => {
   return result as Book[];
 };
 
-export const userModel = {
+export const userService = {
   insertUser,
   updateUser,
   readUserById,

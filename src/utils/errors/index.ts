@@ -17,3 +17,9 @@ export const notFound = (res: Response, message: string) => {
     error: message,
   });
 };
+
+export const forbidden = (res: Response, message: string) => {
+  res.status(403).json({
+    error: message,
+  });
+};
