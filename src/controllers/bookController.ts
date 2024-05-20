@@ -24,7 +24,7 @@ const insertBook = (req: Request, res: Response) => {
   bookService
     .insertBook(book)
     .then((id) => {
-      res.json({
+      res.status(200).json({
         id,
       });
     })
@@ -40,9 +40,16 @@ const updateBook = (req: Request, res: Response) => {
   }
 
   bookService
-    .updateBook(bookId, updates)
+    .readBookById(bookId)
+    .then((existingBook) => {
+      if (!existingBook) {
+        return notFound(res, "Book not found.");
+      }
+
+      return bookService.updateBook(bookId, updates);
+    })
     .then(() => {
-      res.json({ message: "Book updated successfully." });
+      res.status(200).json({ message: "Book updated successfully." });
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -57,7 +64,7 @@ const deleteBook = (req: Request, res: Response) => {
   bookService
     .deleteBook(bookId)
     .then(() => {
-      res.json({ message: "Book deleted successfully." });
+      res.status(200).json({ message: "Book deleted successfully." });
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -75,7 +82,7 @@ const readBookById = (req: Request, res: Response) => {
       if (!book) {
         return notFound(res, "Book not found.");
       }
-      res.json(book);
+      res.status(200).json(book);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -93,7 +100,7 @@ const readBookByName = (req: Request, res: Response) => {
       if (!book) {
         return notFound(res, "Book not found.");
       }
-      res.json(book);
+      res.status(200).json(book);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -111,7 +118,7 @@ const readAllBooksFromUser = (req: Request, res: Response) => {
       if (!user) {
         return notFound(res, "User not found.");
       }
-      res.json(user);
+      res.status(200).json(user);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -130,7 +137,7 @@ const insertTagInBook = (req: Request, res: Response) => {
   bookService
     .insertTagInBook(bookId, tagId)
     .then((id) => {
-      res.json({
+      res.status(200).json({
         id,
       });
     })
@@ -150,7 +157,7 @@ const readTagsInBook = (req: Request, res: Response) => {
       if (!tags) {
         return notFound(res, "Tags not found.");
       }
-      res.json(tags);
+      res.status(200).json(tags);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -169,7 +176,7 @@ const deleteTagInBook = (req: Request, res: Response) => {
   bookService
     .deleteTagInBook(bookId, tagId)
     .then(() => {
-      res.json({ message: "Tag deleted from book successfully." });
+      res.status(200).json({ message: "Tag deleted from book successfully." });
     })
     .catch((err) => internalServerError(res, err));
 };

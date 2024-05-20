@@ -4,8 +4,15 @@ import { dbQuery } from "../../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
   await dbQuery(
-    "INSERT INTO book (title, readAt, finished, favorite, user_id) VALUES(?, ?, ?, ?, ?)",
-    [book.title, book.readAt, book.finished, book.favorite, book.user_id]
+    "INSERT INTO book (title, author, readAt, finished, favorite, user_id) VALUES(?, ?, ?, ?, ?)",
+    [
+      book.title,
+      book.author,
+      book.readAt,
+      book.finished,
+      book.favorite,
+      book.user_id,
+    ]
   );
 
   const actionReturn = await dbQuery(
@@ -20,10 +27,15 @@ export const insertBook = async (book: Book) => {
 };
 
 export const updateBook = async (bookId: number, updates: Partial<Book>) => {
-  const { readAt, finished, favorite } = updates;
+  const { author, readAt, finished, favorite } = updates;
 
   const updateParams: any[] = [];
   let updateQuery = "UPDATE book SET";
+
+  if (author !== undefined) {
+    updateQuery += " author = ?,";
+    updateParams.push(author);
+  }
 
   if (readAt !== undefined) {
     updateQuery += " readAt = ?,";

@@ -1,6 +1,7 @@
 export type Book = {
   id: number;
   title: string;
+  author: string;
   readAt: string;
   finished: boolean;
   favorite: boolean;
