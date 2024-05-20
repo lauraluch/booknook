@@ -35,7 +35,7 @@ const insertUser = (req: Request, res: Response) => {
   userService
     .insertUser(user)
     .then((id) => {
-      res.json({
+      res.status(200).json({
         id,
       });
     })
@@ -53,7 +53,7 @@ const updateUser = (req: Request, res: Response) => {
   userService
     .updateUser(userId, updates)
     .then(() => {
-      res.json({ message: "User updated successfully." });
+      res.status(200).json({ message: "User updated successfully." });
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -71,7 +71,7 @@ const readUserById = (req: Request, res: Response) => {
       if (!user) {
         return notFound(res, "User not found.");
       }
-      res.json(user);
+      res.status(200).json(user);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -90,7 +90,7 @@ const readUserByUsername = (req: Request, res: Response) => {
       if (!user) {
         return notFound(res, "User not found.");
       }
-      res.json(user);
+      res.status(200).json(user);
     })
     .catch((err) => internalServerError(res, err));
 };
