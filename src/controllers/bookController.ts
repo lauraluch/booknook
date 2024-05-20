@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { badRequest, internalServerError, notFound } from "../utils/errors";
+import {
+  badRequest,
+  internalServerError,
+  notFound,
+} from "../utils/mappedResponses";
 import { Book } from "../models/bookModel";
 import { bookService } from "../services/tags/bookService";
 

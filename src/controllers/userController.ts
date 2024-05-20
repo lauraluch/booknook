@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { badRequest, internalServerError, notFound } from "../utils/errors";
+import {
+  badRequest,
+  internalServerError,
+  notFound,
+} from "../utils/mappedResponses";
 import { User } from "../models/userModel";
 import {
   readUserPasswordByUsername,

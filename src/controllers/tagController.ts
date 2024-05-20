@@ -5,7 +5,7 @@ import {
   forbidden,
   internalServerError,
   notFound,
-} from "../utils/errors";
+} from "../utils/mappedResponses";
 import { tagService } from "../services/tags/tagService";
 
 // TODO: tags deviam ser cadastradas para cada usuário.
