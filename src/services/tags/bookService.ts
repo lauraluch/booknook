@@ -1,4 +1,5 @@
 import { Book } from "../../models/bookModel";
+import { Tag } from "../../models/tagModel";
 import { dbQuery } from "../../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
@@ -87,6 +88,40 @@ const readAllBooksFromUser = async (userId: number): Promise<Book[]> => {
   return result as Book[];
 };
 
+// Tags
+
+const insertTagInBook = async (bookId: number, tagId: number) => {
+  await dbQuery("INSERT INTO tagsAndBook (book_id, tag_id) VALUES(?, ?)", [
+    bookId,
+    tagId,
+  ]);
+
+  const actionReturn = await dbQuery(
+    "SELECT seq AS Id FROM sqlite_sequence WHERE name = 'tagsAndBook'"
+  );
+
+  if (Array.isArray(actionReturn) && actionReturn.length > 0) {
+    return actionReturn[0].Id as number;
+  }
+
+  return undefined;
+};
+
+const readTagsInBook = async (bookId: number): Promise<Tag[]> => {
+  const query = "SELECT * FROM tagsAndBook WHERE book_id = ?";
+  const result = await dbQuery(query, [bookId]);
+
+  return result as Tag[];
+};
+
+const deleteTagInBook = async (bookId: number, tagId: number) => {
+  const deleteParams: any[] = [bookId, tagId];
+  const deleteQuery =
+    "DELETE FROM tagsAndBook WHERE book_id = ? AND tag_id = ?";
+
+  await dbQuery(deleteQuery, deleteParams);
+};
+
 export const bookService = {
   insertBook,
   updateBook,
@@ -94,4 +129,7 @@ export const bookService = {
   readBookById,
   readBookByName,
   readAllBooksFromUser,
+  insertTagInBook,
+  readTagsInBook,
+  deleteTagInBook,
 };
