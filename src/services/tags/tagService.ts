@@ -37,7 +37,9 @@ const readTagById = async (tagId: number): Promise<Tag | undefined> => {
   return undefined;
 };
 
-const readAllTags = async (userId: number): Promise<Tag[] | undefined> => {
+const readAllTagsFromUser = async (
+  userId: number
+): Promise<Tag[] | undefined> => {
   const query = "SELECT * FROM booktag WHERE user_id = ?";
   const result = await dbQuery(query, [userId]);
 
@@ -52,5 +54,5 @@ export const tagService = {
   insertTag,
   deleteTag,
   readTagById,
-  readAllTags,
+  readAllTags: readAllTagsFromUser,
 };

@@ -115,29 +115,10 @@ export const validateUser = async (req: Request, res: Response) => {
   }
 };
 
-const readAllBooksFromUser = (req: Request, res: Response) => {
-  const userId = parseInt(req.params.id);
-
-  if (!userId) {
-    return badRequest(res, "Invalid user ID.");
-  }
-
-  userService
-    .readAllBooksFromUser(userId)
-    .then((user) => {
-      if (!user) {
-        return notFound(res, "User not found.");
-      }
-      res.json(user);
-    })
-    .catch((err) => internalServerError(res, err));
-};
-
 export const userController = {
   insertUser,
   updateUser,
   readUserById,
   readUserByUsername,
   validateUser,
-  readAllBooksFromUser,
 };

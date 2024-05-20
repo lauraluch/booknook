@@ -80,10 +80,18 @@ export const readBookByName = async (
   return undefined;
 };
 
+const readAllBooksFromUser = async (userId: number): Promise<Book[]> => {
+  const query = "SELECT * FROM book WHERE user_id = ?";
+  const result = await dbQuery(query, [userId]);
+
+  return result as Book[];
+};
+
 export const bookService = {
   insertBook,
   updateBook,
   deleteBook,
   readBookById,
   readBookByName,
+  readAllBooksFromUser,
 };

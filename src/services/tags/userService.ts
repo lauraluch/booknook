@@ -1,4 +1,3 @@
-import { Book } from "../../models/bookModel";
 import { User } from "../../models/userModel";
 import { dbQuery } from "../../repository/dbConnection";
 
@@ -88,18 +87,10 @@ export const readUserPasswordByUsername = async (
   return undefined;
 };
 
-const readAllBooksFromUser = async (userId: number): Promise<Book[]> => {
-  const query = "SELECT * FROM book WHERE user_id = ?";
-  const result = await dbQuery(query, [userId]);
-
-  return result as Book[];
-};
-
 export const userService = {
   insertUser,
   updateUser,
   readUserById,
   readUserByUsername,
   readUserPasswordByUsername,
-  readAllBooksFromUser,
 };

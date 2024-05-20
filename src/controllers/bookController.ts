@@ -97,10 +97,29 @@ const readBookByName = (req: Request, res: Response) => {
     .catch((err) => internalServerError(res, err));
 };
 
+const readAllBooksFromUser = (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+
+  if (!userId) {
+    return badRequest(res, "Invalid user ID.");
+  }
+
+  bookService
+    .readAllBooksFromUser(userId)
+    .then((user) => {
+      if (!user) {
+        return notFound(res, "User not found.");
+      }
+      res.json(user);
+    })
+    .catch((err) => internalServerError(res, err));
+};
+
 export const bookController = {
   insertBook,
   updateBook,
   deleteBook,
   readBookById,
   readBookByName,
+  readAllBooksFromUser,
 };
