@@ -28,7 +28,7 @@ const createTag = (req: Request, res: Response) => {
   tagService
     .insertTag(tag)
     .then((id) => {
-      res.json({
+      res.status(200).json({
         id,
       });
     })
@@ -45,7 +45,7 @@ const deleteTag = (req: Request, res: Response) => {
   tagService
     .deleteTag(tagId)
     .then(() => {
-      res.json({ message: "Tag deleted successfully." });
+      res.status(200).json({ message: "Tag deleted successfully." });
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -69,7 +69,7 @@ const readTagById = (req: Request, res: Response) => {
         return forbidden(res, "User ID does not match.");
       }
 
-      res.json(tag);
+      res.status(200).json(tag);
     })
     .catch((err) => internalServerError(res, err));
 };
@@ -87,7 +87,7 @@ const readAllTags = (req: Request, res: Response) => {
       if (!tagList) {
         return notFound(res, "Tags not found.");
       }
-      res.json(tagList);
+      res.status(200).json(tagList);
     })
     .catch((err) => internalServerError(res, err));
 };
