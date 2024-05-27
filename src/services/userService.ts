@@ -1,5 +1,5 @@
-import { User } from "../../models/userModel";
-import { dbQuery } from "../../repository/dbConnection";
+import { User } from "../models/userModel";
+import { dbQuery } from "../repository/dbConnection";
 
 export const insertUser = async (user: User) => {
   await dbQuery(

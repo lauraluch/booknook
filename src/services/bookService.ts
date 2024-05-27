@@ -1,6 +1,6 @@
-import { Book } from "../../models/bookModel";
-import { Tag } from "../../models/tagModel";
-import { dbQuery } from "../../repository/dbConnection";
+import { Book } from "../models/bookModel";
+import { Tag } from "../models/tagModel";
+import { dbQuery } from "../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
   await dbQuery(

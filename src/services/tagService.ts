@@ -1,5 +1,5 @@
-import { dbQuery } from "../../repository/dbConnection";
-import { Tag } from "../../models/tagModel";
+import { dbQuery } from "../repository/dbConnection";
+import { Tag } from "../models/tagModel";
 
 const insertTag = async (tag: Tag) => {
   await dbQuery("INSERT INTO booktag (title, color, user_id) VALUES(?, ?, ?)", [

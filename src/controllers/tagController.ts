@@ -6,7 +6,7 @@ import {
   internalServerError,
   notFound,
 } from "../utils/mappedResponses";
-import { tagService } from "../services/tags/tagService";
+import { tagService } from "../services/tagService";
 
 // TODO: tags deviam ser cadastradas para cada usuário.
 const createTag = (req: Request, res: Response) => {

@@ -8,7 +8,7 @@ import { User } from "../models/userModel";
 import {
   readUserPasswordByUsername,
   userService,
-} from "../services/tags/userService";
+} from "../services/userService";
 
 const insertUser = (req: Request, res: Response) => {
   {

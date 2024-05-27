@@ -5,7 +5,7 @@ import {
   notFound,
 } from "../utils/mappedResponses";
 import { Book } from "../models/bookModel";
-import { bookService } from "../services/tags/bookService";
+import { bookService } from "../services/bookService";
 
 const insertBook = (req: Request, res: Response) => {
   {
