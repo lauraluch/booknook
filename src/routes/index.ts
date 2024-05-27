@@ -12,5 +12,5 @@ export const useRoutes = (app: Application) => {
   apiRouter.use("/tags", tagRouter);
   apiRouter.use("/auth", authRouter);
 
-  app.use("/api/v1", apiRouter);
+  app.use("/booknook-api", apiRouter);
 };
