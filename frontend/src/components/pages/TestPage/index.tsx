@@ -11,11 +11,7 @@ interface Props {
   // Props
 }
 
-export const TestPage: React.FC<Props> = (
-  {
-    /* Props */
-  }
-) => {
+export const TestPage: React.FC<Props> = () => {
   return (
     <Container>
       <Typography variant={"h1"}>test page</Typography>
