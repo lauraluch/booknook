@@ -1,5 +1,4 @@
-import { Application } from "express";
-import { Router } from "express";
+import { Application, Router } from "express";
 import { bookRouter } from "./bookRoutes";
 import { userRouter } from "./userRoutes";
 import { authRouter } from "./authRoutes";
