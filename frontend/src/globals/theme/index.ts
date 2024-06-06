@@ -7,7 +7,7 @@ export default {
       placeholder: "#C8C8C8",
     },
     layout: {
-      backgroud: "",
+      backgroud: "#FFFFFF",
       white: "#FFFFFF",
       surface: "#ECECEC",
     },
