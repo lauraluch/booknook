@@ -7,7 +7,7 @@ export interface GetBackgroudProps {
 }
 
 export function getBackgroundColor({ disabled, hasError }: GetBackgroudProps) {
-  if (hasError) return theme.colors.role.errorLight;
+  if (hasError) return theme.colors.role.errorLightest;
   else if (disabled) return theme.colors.layout.surface;
   return theme.colors.layout.white;
 }

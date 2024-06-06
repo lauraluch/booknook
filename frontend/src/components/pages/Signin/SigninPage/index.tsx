@@ -21,6 +21,7 @@ export const SigninPage: React.FC<Props> = () => {
     password,
     handleChangePassword,
     handleLogin,
+    errorMessage,
   } = useLogin();
 
   return (
@@ -32,21 +33,27 @@ export const SigninPage: React.FC<Props> = () => {
           <Title />
 
           <TitledInput
-            title="nome de usuário"
+            title="Nome de usuário"
             placeholder="username"
             value={username}
             onChange={handleChangeUsername}
           />
 
           <TitledInput
-            title="senha"
+            title="Senha"
             type="password"
             placeholder="●●●●●●●"
             value={password}
             onChange={handleChangePassword}
+            errorMessage={errorMessage}
           />
 
-          <Button label={"Entrar"} size="large" onClick={() => handleLogin()} />
+          <Button
+            label={"Entrar"}
+            size="large"
+            onClick={() => handleLogin()}
+            disabled={username.length === 0 || password.length === 0}
+          />
         </InputsContainer>
       </BodyContainer>
     </Container>

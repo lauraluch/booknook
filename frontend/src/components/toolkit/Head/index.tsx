@@ -30,7 +30,7 @@ const Head: React.FC<HeadProps> = ({
 
       <link rel="icon" href={shine.src} />
 
-      <link rel="manifest" href="/favicon/manifest.json" />
+      <link rel="manifest" href={shine.src} />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       <meta name="theme-color" content="#ffffff" />
