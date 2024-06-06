@@ -9,6 +9,7 @@ import { Typography } from "src/components/toolkit/Typography";
 import theme from "@globals/theme";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
+import { Title } from "@components/structure/Title";
 
 interface Props {
   // Props
@@ -25,9 +26,7 @@ export const SigninPage: React.FC<Props> = (
 
       <BodyContainer>
         <InputsContainer>
-          <Typography variant="h1" color={theme.colors.text.primary}>
-            booknook
-          </Typography>
+          <Title />
 
           <TitledInput title="nome de usuário" placeholder="username" />
 

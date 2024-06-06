@@ -2,6 +2,12 @@
 import { css } from "styled-components";
 
 export const TypographyStyles = {
+  t1: css`
+    font-family: "Poppins", sans-serif;
+    font-size: 3.25rem;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  `,
   h1: css`
     font-family: "Poppins", sans-serif;
     font-size: 2.25rem;
