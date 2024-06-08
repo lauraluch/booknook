@@ -3,4 +3,6 @@ export interface HttpLoginPayload {
   password: string;
 }
 
-export interface HttpLoginResponse {}
+export interface HttpLoginResponse {
+  userId: number;
+}

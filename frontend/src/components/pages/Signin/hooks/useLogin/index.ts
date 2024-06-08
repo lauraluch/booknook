@@ -1,11 +1,13 @@
 import { postLogin } from "@services/api/login";
 import { useEffect, useState } from "react";
 import { mapLoginErrorMessages } from "./functions";
+import { useRouter } from "next/router";
 
 export function useLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   function handleChangeUsername(username: string) {
     setUsername(username);
@@ -23,7 +25,9 @@ export function useLogin() {
         username: username,
         password: password,
       });
-      console.log(response);
+      console.log(response.userId);
+
+      router.push(`/books/${response.userId}`);
     } catch (error) {
       console.log("[handleLogin]: ", error.response);
       setErrorMessage(mapLoginErrorMessages(error.response.status));
