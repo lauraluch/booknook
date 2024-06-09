@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useAuthContext } from "@contexts/useAuthContext";
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 
 export function useLogin() {
   const [username, setUsername] = useState("");
@@ -11,7 +8,6 @@ export function useLogin() {
 
   // Hooks
   const { signIn, loading, error } = useAuthContext();
-  const router = useRouter();
 
   function handleChangeUsername(username: string) {
     setUsername(username);

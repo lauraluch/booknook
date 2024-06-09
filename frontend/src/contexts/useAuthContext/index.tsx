@@ -11,7 +11,6 @@ import React, {
 import { AuthContextData, IAuthUser } from "./types";
 import { postLogin } from "@services/api/login";
 import { mapLoginErrorMessages } from "@pages/Signin/hooks/useLogin/utils";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 
@@ -22,7 +21,7 @@ const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<IAuthUser>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const token = Cookies.get("token");
 
   // Functions
   async function signIn(username: string, password: string): Promise<void> {
@@ -42,34 +41,29 @@ const AuthContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
     } catch (error) {
       console.log("[signIn]: ", error.response);
       setError(mapLoginErrorMessages(error.response.status));
-      setUser(null);
     } finally {
       setLoading(false);
     }
   }
 
   function signOut(): void {
-    setUser(null);
+    setUser({ userId: -1 });
     Cookies.remove("token");
-    router.push("/");
+  }
+
+  async function fetchUser() {
+    if (token) {
+      const decoded = jwt.decode(token) as any;
+      setUser({ userId: decoded.id });
+    } else {
+      setUser({ userId: -1 });
+    }
   }
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    console.log(token);
-
-    if (token) {
-      const decoded = jwt.decode(token) as any;
-      console.log(decoded);
-      setUser({ userId: decoded.id });
-    }
+    fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      router.push(`/books/${user.userId}`);
-    }
-  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, loading, error, signIn, signOut }}>
