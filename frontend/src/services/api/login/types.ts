@@ -5,4 +5,5 @@ export interface HttpLoginPayload {
 
 export interface HttpLoginResponse {
   userId: number;
+  token: string;
 }

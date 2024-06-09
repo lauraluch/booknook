@@ -8,12 +8,15 @@ import { Container } from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
+import { useAuthContext } from "@contexts/useAuthContext";
 
 interface Props {
   // Props
 }
 
 export const TestPage: React.FC<Props> = () => {
+  const { signOut } = useAuthContext();
+
   return (
     <Container>
       <Typography variant={"h1"}>test page</Typography>
@@ -28,7 +31,7 @@ export const TestPage: React.FC<Props> = () => {
       >
         <TitledInput title="Título do Input" type="password" />
 
-        <Button variant="primary" label={"Botão"} />
+        <Button label={"Sair da conta"} size="large" onClick={signOut} />
       </div>
     </Container>
   );

@@ -10,6 +10,7 @@ import {
   readUserPasswordByUsername,
   userService,
 } from "../services/userService";
+import jwt, { Secret } from "jsonwebtoken";
 
 const insertUser = (req: Request, res: Response) => {
   {
@@ -116,7 +117,17 @@ export const validateUser = async (req: Request, res: Response) => {
 
     const userId = await readUserIdByUsername(username);
 
-    res.status(200).json({ message: "Login successful.", userId });
+    const token = jwt.sign(
+      { id: userId, username: username },
+      process.env.JWT_SECRET as Secret,
+      { expiresIn: "1h" }
+    );
+
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    // });
+
+    res.status(200).json({ message: "Login successful.", userId, token });
   } catch (err) {
     internalServerError(res, err as any);
   }
