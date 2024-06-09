@@ -1,6 +1,6 @@
+import { Signup } from "@pages/Signup";
 import React from "react";
 import Head from "src/components/toolkit/Head";
-import { Signup } from "@pages/Signup";
 
 const HomePage: React.FC = () => {
   return (

@@ -1,15 +1,12 @@
-// External Libraries
 import React from "react";
-
-// Components
-
-// Styles
 import { BodyContainer, Container, DescriptionContainer } from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import theme from "@globals/theme";
 import { useSignup } from "./hooks/useSignup";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
+import type { DatePickerProps } from "antd";
+import { DatePicker, Space } from "antd";
 
 interface Props {
   // Props
@@ -27,6 +24,10 @@ export const Signup: React.FC<Props> = () => {
     handleBiographyChange,
     errorMessage,
   } = useSignup();
+
+  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
     <Container>
@@ -81,6 +82,10 @@ export const Signup: React.FC<Props> = () => {
           onChange={handleBiographyChange}
           optional
         />
+
+        <Space direction="vertical">
+          <DatePicker onChange={onChange} />
+        </Space>
 
         <Button
           label={"Criar sua conta"}

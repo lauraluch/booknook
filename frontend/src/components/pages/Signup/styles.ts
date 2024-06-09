@@ -21,6 +21,10 @@ export const BodyContainer = styled.div`
   ${defaultAnchors({
     width: ["18rem", "18rem", "20rem", "26rem", "32rem"],
   })}
+
+  border-radius: 0.75rem;
+
+  box-shadow: 0px 4px 19px 5px rgba(106, 82, 128, 0.2);
 `;
 
 export const DescriptionContainer = styled.div`

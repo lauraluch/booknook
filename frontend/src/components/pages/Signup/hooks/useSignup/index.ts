@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IBackUser } from "src/types/user/IBackUser";
 
 export function useSignup() {
   const [username, setUsername] = useState("");
@@ -31,6 +32,16 @@ export function useSignup() {
       return;
     }
     setErrorMessage("");
+  }
+
+  async function handleCreateUser() {
+    const user: IBackUser = {
+      username: username,
+      password: password,
+      biography: biography,
+      creationDate: Date.now().toString(),
+      birthDate: Date.now().toString(),
+    };
   }
 
   useEffect(() => {
