@@ -4,7 +4,6 @@ import React, {
   useContext,
   PropsWithChildren,
   useState,
-  useEffect,
 } from "react";
 
 // Types

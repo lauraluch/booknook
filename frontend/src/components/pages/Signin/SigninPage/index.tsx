@@ -1,5 +1,5 @@
 // External Libraries
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 // Components
 
@@ -9,8 +9,6 @@ import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
 import { Title } from "@components/structure/Title";
 import { useLogin } from "../hooks/useLogin";
-import { useAuthContext } from "@contexts/useAuthContext";
-import { useRouter } from "next/router";
 
 interface Props {
   // Props
@@ -26,19 +24,6 @@ export const SigninPage: React.FC<Props> = () => {
     errorMessage,
     loading,
   } = useLogin();
-  // const { signIn, loading } = useAuthContext();
-
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const router = useRouter();
-
-  // const handleLogin = async () => {
-  //   const response = await signIn(username, password);
-
-  //   if (response) {
-  //     router.push(`/books/${response}`);
-  //   }
-  // };
 
   return (
     <Container>
