@@ -92,7 +92,7 @@ export const StyledInput = styled.input`
   display: flex;
   width: 100%;
   height: 2.5rem;
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
 
   background-color: transparent;
@@ -122,6 +122,7 @@ export interface TitleProps {
 export const TitleOptionalContainer = styled.div<TitleProps>`
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   gap: ${({ optional }) => (optional ? `0.2rem` : `0`)};
 

@@ -4,7 +4,7 @@ export default {
     text: {
       primary: "#000000",
       secondary: "#636363",
-      placeholder: "#C8C8C8",
+      placeholder: "#A8A8A8",
     },
     layout: {
       backgroud: "#FFFFFF",

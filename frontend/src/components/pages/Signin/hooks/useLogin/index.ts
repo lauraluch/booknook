@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@contexts/useAuthContext";
+import { useRouter } from "next/router";
 
 export function useLogin() {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ export function useLogin() {
 
   // Hooks
   const { signIn, loading, error } = useAuthContext();
+  const router = useRouter();
 
   function handleChangeUsername(username: string) {
     setUsername(username);
@@ -27,6 +29,10 @@ export function useLogin() {
     }
   }
 
+  function handleSignupClick() {
+    router.push("/signup");
+  }
+
   useEffect(() => {
     setErrorMessage(error);
   }, [error]);
@@ -39,5 +45,6 @@ export function useLogin() {
     handleLogin,
     errorMessage,
     loading,
+    handleSignupClick,
   };
 }

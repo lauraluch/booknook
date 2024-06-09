@@ -33,3 +33,17 @@ export const InputsContainer = styled.div`
 
   background-color: ${({ theme }) => theme.colors.layout.backgroud};
 `;
+
+export const SignupContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  color: ${({ theme }) => theme.colors.role.primary};
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.role.primaryDark};
+  }
+
+  transition: color 0.1s ease;
+`;

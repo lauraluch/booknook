@@ -134,7 +134,7 @@ export const TitledInputComponent = React.forwardRef<TitledInputMethods, Props>(
       const renderOptionalColor =
         optional !== undefined
           ? optional === true
-            ? `${theme.colors.text.secondary}`
+            ? `${theme.colors.text.placeholder}`
             : `${theme.colors.role.error}`
           : "";
 
@@ -146,7 +146,7 @@ export const TitledInputComponent = React.forwardRef<TitledInputMethods, Props>(
           >
             {title}
           </Typography>
-          <Typography variant="s2" color={renderOptionalColor}>
+          <Typography variant="s3" color={renderOptionalColor}>
             {renderOptionalText}
           </Typography>
         </TitleOptionalContainer>
