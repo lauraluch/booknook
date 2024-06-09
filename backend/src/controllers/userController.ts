@@ -6,6 +6,7 @@ import {
 } from "../utils/mappedResponses";
 import { User } from "../models/userModel";
 import {
+  readUserIdByUsername,
   readUserPasswordByUsername,
   userService,
 } from "../services/userService";
@@ -113,7 +114,9 @@ export const validateUser = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid password." });
     }
 
-    res.status(200).json({ message: "Login successful." });
+    const userId = await readUserIdByUsername(username);
+
+    res.status(200).json({ message: "Login successful.", userId });
   } catch (err) {
     internalServerError(res, err as any);
   }

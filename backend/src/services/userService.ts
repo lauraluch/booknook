@@ -87,6 +87,19 @@ export const readUserPasswordByUsername = async (
   return undefined;
 };
 
+export const readUserIdByUsername = async (
+  username: string
+): Promise<string | undefined> => {
+  const query = "SELECT id FROM bookuser WHERE username = ?";
+  const result = await dbQuery(query, [username]);
+
+  if (Array.isArray(result) && result.length > 0) {
+    return result[0].id as string;
+  }
+
+  return undefined;
+};
+
 export const userService = {
   insertUser,
   updateUser,

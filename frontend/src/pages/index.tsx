@@ -1,9 +1,12 @@
+import { SigninPage } from "@pages/Signin/SigninPage";
 import React from "react";
+import Head from "src/components/toolkit/Head";
 
 const HomePage: React.FC = () => {
   return (
     <>
-      <h1>booknook</h1>
+      <Head title={"booknook | test page"} />
+      <SigninPage />
     </>
   );
 };

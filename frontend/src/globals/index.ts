@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .custom-linear-progress .mdc-linear-progress__bar-inner {
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.text.primary};
   }
 
 `;
