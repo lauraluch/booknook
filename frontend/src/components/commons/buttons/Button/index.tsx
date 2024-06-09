@@ -17,6 +17,8 @@ import { ButtonSizes, ButtonVariants } from "./types";
 import { TypographyVariants } from "src/components/toolkit/Typography/types";
 import { Typography } from "src/components/toolkit/Typography";
 import Link from "next/link";
+import { Loader } from "src/components/toolkit/Loader";
+import theme from "@globals/theme";
 
 interface Props
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "label">,
@@ -114,7 +116,7 @@ export const Button = forwardRef<ButtonMethods, Props>(
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              {/* <Loader color={theme.colors.primaryDark} /> */}
+              <Loader color={theme.colors.role.primaryDark} />
             </LoadingContainer>
           ) : null}
         </Container>

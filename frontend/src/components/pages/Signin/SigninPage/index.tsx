@@ -1,5 +1,5 @@
 // External Libraries
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 
@@ -9,6 +9,8 @@ import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
 import { Title } from "@components/structure/Title";
 import { useLogin } from "../hooks/useLogin";
+import { useAuthContext } from "@contexts/useAuthContext";
+import { useRouter } from "next/router";
 
 interface Props {
   // Props
@@ -22,7 +24,21 @@ export const SigninPage: React.FC<Props> = () => {
     handleChangePassword,
     handleLogin,
     errorMessage,
+    loading,
   } = useLogin();
+  // const { signIn, loading } = useAuthContext();
+
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  // const router = useRouter();
+
+  // const handleLogin = async () => {
+  //   const response = await signIn(username, password);
+
+  //   if (response) {
+  //     router.push(`/books/${response}`);
+  //   }
+  // };
 
   return (
     <Container>
@@ -42,7 +58,7 @@ export const SigninPage: React.FC<Props> = () => {
           <TitledInput
             title="Senha"
             type="password"
-            placeholder="●●●●●●●"
+            placeholder="✦✦✦✦✦✦"
             value={password}
             onChange={handleChangePassword}
             errorMessage={errorMessage}
@@ -53,6 +69,7 @@ export const SigninPage: React.FC<Props> = () => {
             size="large"
             onClick={() => handleLogin()}
             disabled={username.length === 0 || password.length === 0}
+            loading={loading}
           />
         </InputsContainer>
       </BodyContainer>

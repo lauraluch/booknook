@@ -1,12 +1,16 @@
 import { postLogin } from "@services/api/login";
 import { useEffect, useState } from "react";
-import { mapLoginErrorMessages } from "./functions";
+import { mapLoginErrorMessages } from "./utils";
 import { useRouter } from "next/router";
+import { useAuthContext } from "@contexts/useAuthContext";
 
 export function useLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Hooks
+  const { signIn, loading, error } = useAuthContext();
   const router = useRouter();
 
   function handleChangeUsername(username: string) {
@@ -21,22 +25,17 @@ export function useLogin() {
 
   async function handleLogin() {
     try {
-      const response = await postLogin({
-        username: username,
-        password: password,
-      });
-      console.log(response.userId);
+      const response = await signIn(username, password);
 
-      router.push(`/books/${response.userId}`);
+      if (response) router.push(`/books/${response}`);
     } catch (error) {
       console.log("[handleLogin]: ", error.response);
-      setErrorMessage(mapLoginErrorMessages(error.response.status));
     }
   }
 
   useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
+    setErrorMessage(error);
+  }, [error]);
 
   return {
     username,
@@ -45,5 +44,6 @@ export function useLogin() {
     handleChangePassword,
     handleLogin,
     errorMessage,
+    loading,
   };
 }

@@ -3,7 +3,7 @@ export default {
   colors: {
     text: {
       primary: "#000000",
-      secondary: "#2E2E2E",
+      secondary: "#636363",
       placeholder: "#C8C8C8",
     },
     layout: {
