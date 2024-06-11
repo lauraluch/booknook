@@ -5,6 +5,8 @@ import theme from "@globals/theme";
 import { useSignup } from "./hooks/useSignup";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
+import { ActionModal } from "src/components/modals/ActionModal";
+import { useRouter } from "next/router";
 
 interface Props {
   // Props
@@ -25,7 +27,10 @@ export const Signup: React.FC<Props> = () => {
     errorMessage,
     handleCreateUser,
     loading,
+    modalRef,
   } = useSignup();
+
+  const router = useRouter();
 
   return (
     <Container>
@@ -104,6 +109,16 @@ export const Signup: React.FC<Props> = () => {
           loading={loading}
         />
       </BodyContainer>
+
+      <ActionModal
+        ref={modalRef}
+        title={"Criação de usuário"}
+        description={
+          "Seu usuário foi criado com sucesso! Vamos para a página de login para você poder usar o sistema."
+        }
+        confirmLabel="Ir para login"
+        onConfirmPress={() => router.push("/")}
+      />
     </Container>
   );
 };

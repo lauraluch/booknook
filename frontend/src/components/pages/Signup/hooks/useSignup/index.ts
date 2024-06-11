@@ -1,6 +1,7 @@
 import { postUser } from "@services/api/user/postUser";
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ActionModalMethods } from "src/components/modals/ActionModal/types";
 import { IBackUser } from "src/types/user/IBackUser";
 
 export function useSignup() {
@@ -11,6 +12,9 @@ export function useSignup() {
   const [birthDate, setBirthDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Refs
+  const modalRef = useRef<ActionModalMethods>(null);
 
   function handleUsernameChange(value: string) {
     setUsername(value);
@@ -58,7 +62,7 @@ export function useSignup() {
 
       await postUser(user);
 
-      console.log("Usuário criado com sucesso!");
+      modalRef.current.open();
     } catch (error) {
       console.log("[handleCreateUser]: ", error.response);
     } finally {
@@ -84,5 +88,6 @@ export function useSignup() {
     errorMessage,
     handleCreateUser,
     loading,
+    modalRef,
   };
 }
