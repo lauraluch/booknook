@@ -6,9 +6,8 @@ export function useSignup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [biography, setBiography] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  //   const [birthDate, setBirthDate] = useState();
 
   function handleUsernameChange(value: string) {
     setUsername(value);
@@ -26,7 +25,16 @@ export function useSignup() {
     setBiography(value);
   }
 
+  function handleBirthDateChange(value: string) {
+    setBirthDate(value);
+  }
+
   function checkPasswordValidity() {
+    if (password && password.length < 4) {
+      setErrorMessage("A senha deve ter no mínimo 4 caracteres.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setErrorMessage("As senhas não condizem.");
       return;
@@ -57,6 +65,8 @@ export function useSignup() {
     handleConfirmPasswordChange,
     biography,
     handleBiographyChange,
+    birthDate,
+    handleBirthDateChange,
     errorMessage,
   };
 }

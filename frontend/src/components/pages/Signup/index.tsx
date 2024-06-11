@@ -1,12 +1,16 @@
 import React from "react";
-import { BodyContainer, Container, DescriptionContainer } from "./styles";
+import {
+  BodyContainer,
+  Container,
+  DatePickerComponent,
+  DescriptionContainer,
+} from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import theme from "@globals/theme";
 import { useSignup } from "./hooks/useSignup";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
-import type { DatePickerProps } from "antd";
-import { DatePicker, Space } from "antd";
+import { format } from "date-fns";
 
 interface Props {
   // Props
@@ -22,12 +26,10 @@ export const Signup: React.FC<Props> = () => {
     handleConfirmPasswordChange,
     biography,
     handleBiographyChange,
+    birthDate,
+    handleBirthDateChange,
     errorMessage,
   } = useSignup();
-
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
-  };
 
   return (
     <Container>
@@ -83,9 +85,14 @@ export const Signup: React.FC<Props> = () => {
           optional
         />
 
-        <Space direction="vertical">
-          <DatePicker onChange={onChange} />
-        </Space>
+        <TitledInput
+          title="Data de nascimento"
+          value={birthDate}
+          onChange={handleBirthDateChange}
+          type="date"
+          max={"2024-01-01"}
+          min={"1900-01-01"}
+        />
 
         <Button
           label={"Criar sua conta"}
@@ -94,8 +101,10 @@ export const Signup: React.FC<Props> = () => {
           disabled={
             username.length === 0 ||
             password.length === 0 ||
-            confirmPassword.length === 0
+            confirmPassword.length === 0 ||
+            birthDate.length === 0
           }
+          onClick={() => console.log(birthDate)}
         />
       </BodyContainer>
     </Container>

@@ -9,7 +9,8 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.role.primaryLight};
   gap: 1rem;
   width: 100%;
-  height: 100dvh;
+  height: 100%;
+  padding: 4rem 0;
 `;
 
 export const BodyContainer = styled.div`
@@ -31,4 +32,10 @@ export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+`;
+
+export const DatePickerComponent = styled.input`
+  padding: 0.65rem;
+  border: solid 1px ${({ theme }) => theme.colors.border};
+  border-radius: 0.5rem;
 `;

@@ -239,6 +239,8 @@ export const TitledInputComponent = React.forwardRef<TitledInputMethods, Props>(
             onBlur={onBlur}
             onChange={(e) => handleChangeText(e.target.value)}
             maxLength={getInputMaxLength()}
+            max={rest.max}
+            min={rest.min}
           />
 
           {renderSuffix()}
