@@ -14,6 +14,8 @@ import { ActionModalMethods } from "./types";
 import { BaseModal } from "../BaseModal";
 import { Container, Content, Footer, Header } from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
+import { IconButton } from "@components/buttons/IconButton";
+import CloseSVG from "@assets/icons/modals/Close";
 
 interface Props {
   title: string;
@@ -75,7 +77,11 @@ export const ActionModal = React.forwardRef<ActionModalMethods, Props>(
               {title}
             </Typography>
 
-            {/* <IconButton size="2rem" icon={<CloseSVG />} onClick={handleClose} /> */}
+            <IconButton
+              size="2rem"
+              icon={<CloseSVG stroke={theme.colors.border} />}
+              onClick={handleClose}
+            />
           </Header>
 
           <Content>
