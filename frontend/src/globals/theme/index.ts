@@ -29,5 +29,13 @@ export default {
       errorLightest: "#FFCDD6",
       errorDark: "#DC2C4C",
     },
+    shadows: {
+      shadowSmallest: "0px 2px 4px rgba(0,0,0,.1)",
+      shadowExtraSmall: "0px 4px 8px rgba(0,0,0,.12)",
+      shadowSmall: "0 5px 10px rgba(0,0,0,.12)",
+      shadowMedium: "0 8px 30px rgba(0,0,0,.12)",
+      shadowLarge: "0 30px 60px rgba(0,0,0,.12)",
+      shadowHover: "0 30px 60px rgba(0,0,0,.12)",
+    },
   },
 };
