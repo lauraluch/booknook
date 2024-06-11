@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  BodyContainer,
-  Container,
-  DatePickerComponent,
-  DescriptionContainer,
-} from "./styles";
+import { BodyContainer, Container, DescriptionContainer } from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import theme from "@globals/theme";
 import { useSignup } from "./hooks/useSignup";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
-import { format } from "date-fns";
 
 interface Props {
   // Props
@@ -29,6 +23,8 @@ export const Signup: React.FC<Props> = () => {
     birthDate,
     handleBirthDateChange,
     errorMessage,
+    handleCreateUser,
+    loading,
   } = useSignup();
 
   return (
@@ -104,7 +100,8 @@ export const Signup: React.FC<Props> = () => {
             confirmPassword.length === 0 ||
             birthDate.length === 0
           }
-          onClick={() => console.log(birthDate)}
+          onClick={handleCreateUser}
+          loading={loading}
         />
       </BodyContainer>
     </Container>

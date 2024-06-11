@@ -1,3 +1,5 @@
+import { postUser } from "@services/api/user/postUser";
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { IBackUser } from "src/types/user/IBackUser";
 
@@ -8,6 +10,7 @@ export function useSignup() {
   const [biography, setBiography] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleUsernameChange(value: string) {
     setUsername(value);
@@ -43,13 +46,24 @@ export function useSignup() {
   }
 
   async function handleCreateUser() {
-    const user: IBackUser = {
-      username: username,
-      password: password,
-      biography: biography,
-      creationDate: Date.now().toString(),
-      birthDate: Date.now().toString(),
-    };
+    setLoading(true);
+    try {
+      const user: IBackUser = {
+        username: username,
+        password: password,
+        biography: biography,
+        creation_date: format(Date.now(), "yyyy-MM-dd"),
+        birth_date: birthDate,
+      };
+
+      await postUser(user);
+
+      console.log("Usuário criado com sucesso!");
+    } catch (error) {
+      console.log("[handleCreateUser]: ", error.response);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -68,5 +82,7 @@ export function useSignup() {
     birthDate,
     handleBirthDateChange,
     errorMessage,
+    handleCreateUser,
+    loading,
   };
 }
