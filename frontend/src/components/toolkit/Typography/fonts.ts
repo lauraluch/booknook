@@ -11,19 +11,19 @@ export const TypographyStyles = {
   h1: css`
     font-family: "Poppins", sans-serif;
     font-size: 2.25rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.2px;
   `,
   h2: css`
     font-family: "Poppins", sans-serif;
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.2px;
   `,
   h3: css`
     font-family: "Poppins", sans-serif;
     font-size: 1.75rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.2px;
   `,
   h4: css`

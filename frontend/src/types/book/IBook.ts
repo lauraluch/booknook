@@ -1,11 +1,10 @@
-export type Book = {
+export type IBook = {
   id: number;
   title: string;
   author: string;
   readAt: string;
   finished: boolean;
   favorite: boolean;
-  user_id: number;
-  rating: number;
-  color: string;
+  rating?: number;
+  color?: string;
 };

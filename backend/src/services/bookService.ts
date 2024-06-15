@@ -4,7 +4,7 @@ import { dbQuery } from "../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
   await dbQuery(
-    "INSERT INTO book (title, author, readAt, finished, favorite, user_id) VALUES(?, ?, ?, ?, ?)",
+    "INSERT INTO book (title, author, readAt, finished, favorite, user_id, rating, color) VALUES(?, ?, ?, ?, ?, ?, ?)",
     [
       book.title,
       book.author,
@@ -12,6 +12,8 @@ export const insertBook = async (book: Book) => {
       book.finished,
       book.favorite,
       book.user_id,
+      book.rating,
+      book.color,
     ]
   );
 
@@ -27,7 +29,7 @@ export const insertBook = async (book: Book) => {
 };
 
 export const updateBook = async (bookId: number, updates: Partial<Book>) => {
-  const { author, readAt, finished, favorite } = updates;
+  const { author, readAt, finished, favorite, rating, color } = updates;
 
   const updateParams: any[] = [];
   let updateQuery = "UPDATE book SET";
@@ -50,6 +52,16 @@ export const updateBook = async (bookId: number, updates: Partial<Book>) => {
   if (favorite !== undefined) {
     updateQuery += " favorite = ?,";
     updateParams.push(favorite);
+  }
+
+  if (rating !== undefined) {
+    updateQuery += " rating = ?,";
+    updateParams.push(rating);
+  }
+
+  if (color !== undefined) {
+    updateQuery += " color = ?,";
+    updateParams.push(color);
   }
 
   updateQuery = updateQuery.slice(0, -1);
