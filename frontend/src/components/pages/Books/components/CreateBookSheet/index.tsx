@@ -1,5 +1,5 @@
 // External Libraries
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 
@@ -11,6 +11,8 @@ import { Sheet } from "src/components/toolkit/Sheet";
 import { Typography } from "src/components/toolkit/Typography";
 import { IBook } from "src/types/book/IBook";
 import { TitledInput } from "@components/inputs/TitledInput";
+import { Rating } from "@components/books/Rating";
+import { IRating } from "@components/books/Rating/types";
 
 interface Props {
   isOpen: boolean;
