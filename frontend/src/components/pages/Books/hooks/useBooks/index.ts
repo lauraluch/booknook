@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { makeCreateBookForm } from "./utils";
+import { IBook } from "src/types/book/IBook";
 
 export function useBooks() {
   const [isCreating, setIsCreating] = useState(false);
+  const [form, setForm] = useState(makeCreateBookForm);
 
   const booksMock = [
     {
@@ -31,6 +34,10 @@ export function useBooks() {
     },
   ];
 
+  function handleFormChange(key: keyof IBook, value: any) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
   function handleCreateClick() {
     setIsCreating(true);
   }
@@ -44,5 +51,7 @@ export function useBooks() {
     handleCreateClick,
     handleOutsideClick,
     isCreating,
+    form,
+    handleFormChange,
   };
 }

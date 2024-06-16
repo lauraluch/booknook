@@ -5,9 +5,12 @@ export const SheetContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 24rem;
   position: absolute;
   right: 0;
   background-color: ${({ theme }) => theme.colors.layout.white};
+
+  overflow: hidden;
 `;
 
 interface Props {
@@ -31,3 +34,5 @@ export const Backdrop = styled(motion.div)<Props>`
 
   /* transition: background-color 0.3s ease; */
 `;
+
+export const ChildrenContainer = styled(motion.div)``;

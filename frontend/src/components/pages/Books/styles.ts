@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
+  width: 100dvw;
   height: 100%;
 `;
 
@@ -12,7 +13,8 @@ export const Header = styled.div`
   flex-direction: row;
   /* position: fixed; */
   width: 100%;
-  padding: 1rem;
+  padding: 0 1rem;
+  height: 4.5rem;
   gap: 0.75rem;
   background-color: ${({ theme }) => theme.colors.role.primaryLightest};
   align-items: center;
@@ -48,4 +50,11 @@ export const CreateBookButton = styled.div`
   }
 
   transition: background-color 0.3s ease;
+`;
+
+export const TitleAndDescriptionSheet = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 0.25rem;
 `;

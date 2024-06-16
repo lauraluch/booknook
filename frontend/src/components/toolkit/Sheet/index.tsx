@@ -4,7 +4,12 @@ import React, { PropsWithChildren } from "react";
 // Components
 
 // Styles
-import { Backdrop, Container, SheetContainer } from "./styles";
+import {
+  Backdrop,
+  ChildrenContainer,
+  Container,
+  SheetContainer,
+} from "./styles";
 import { AnimatePresence } from "framer-motion";
 
 interface Props {
@@ -35,16 +40,24 @@ export const Sheet: React.FC<PropsWithChildren<Props>> = ({
         {isOpen && (
           <SheetContainer
             key={"sheet-container"}
-            initial={{ width: "0.1rem" }}
+            initial={{ width: "0rem" }}
             animate={{ width: "24rem" }}
-            exit={{ width: "0.1rem" }}
+            exit={{ width: "0rem" }}
             transition={{
               type: "spring",
               stiffness: 300,
               damping: 30,
             }}
           >
-            {children}
+            <ChildrenContainer
+              key={"sheet-children"}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ opacity: { delay: 0.15 } }}
+            >
+              {children}
+            </ChildrenContainer>
           </SheetContainer>
         )}
       </AnimatePresence>

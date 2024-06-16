@@ -1,5 +1,5 @@
 // External Libraries
-import React from "react";
+import React, { useEffect } from "react";
 
 // Components
 
@@ -12,6 +12,7 @@ import { useBooks } from "./hooks/useBooks";
 import { Book } from "./components/Book";
 import AddSVG from "@assets/icons/buttons/Add";
 import { Sheet } from "src/components/toolkit/Sheet";
+import { CreateBookSheet } from "./components/CreateBookSheet";
 
 interface Props {
   // Props
@@ -22,13 +23,23 @@ export const Books: React.FC<Props> = (
     /* Props */
   }
 ) => {
-  const { isCreating, handleCreateClick, handleOutsideClick, booksMock } =
-    useBooks();
+  const {
+    isCreating,
+    handleCreateClick,
+    handleOutsideClick,
+    booksMock,
+    form,
+    handleFormChange,
+  } = useBooks();
+
+  useEffect(() => {
+    console.log(isCreating);
+  }, [isCreating]);
 
   return (
     <Container>
       <Header>
-        <Typography variant="h1" color={theme.colors.text.primary}>
+        <Typography variant="h2" color={theme.colors.text.primary}>
           booknook
         </Typography>
 
@@ -45,7 +56,12 @@ export const Books: React.FC<Props> = (
         <AddSVG stroke={theme.colors.layout.white} />
       </CreateBookButton>
 
-      <Sheet isOpen={isCreating} onOutsideClick={handleOutsideClick} />
+      <CreateBookSheet
+        isOpen={isCreating}
+        onOutsideClick={handleOutsideClick}
+        bookForm={form}
+        onChangeForm={handleFormChange}
+      />
     </Container>
   );
 };
