@@ -32,10 +32,6 @@ export const Books: React.FC<Props> = (
     handleFormChange,
   } = useBooks();
 
-  useEffect(() => {
-    console.log(isCreating);
-  }, [isCreating]);
-
   return (
     <Container>
       <Header>

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 // Styles
 import {
   Container,
+  PickerContainer,
   RadioContainer,
   RadioInputs,
   TitleAndDescription,
@@ -21,6 +22,7 @@ import { IRating } from "@components/books/Rating/types";
 import { Checkbox } from "@components/checks/Checkbox";
 import { RadioCheckbox } from "@components/checks/RadioCheckbox";
 import HeartSelectSVG from "@assets/icons/books/HeartSelect";
+import { ColorPicker } from "@components/selectors/ColorPicker";
 
 interface Props {
   isOpen: boolean;
@@ -46,7 +48,7 @@ export const CreateBookSheet: React.FC<Props> = ({
           <Typography variant="h4">Criar um livro</Typography>
 
           <Typography variant="b2" color={theme.colors.text.secondary}>
-            Insira os dados abaixo e salve suas alterações para criar um novo
+            Insira os dados abaixo e salve as alterações para criar um novo
             livro.
           </Typography>
         </TitleAndDescription>
@@ -55,6 +57,17 @@ export const CreateBookSheet: React.FC<Props> = ({
           stars={bookForm.rating as IRating}
           onStarClick={(v) => onChangeForm("rating", v)}
         />
+
+        <PickerContainer>
+          <Typography variant="s2" color={theme.colors.text.secondary}>
+            Cor do livro
+          </Typography>
+
+          <ColorPicker
+            color={bookForm.color}
+            onColorChange={(v) => onChangeForm("color", v)}
+          />
+        </PickerContainer>
 
         <TitledInput
           title="Título"

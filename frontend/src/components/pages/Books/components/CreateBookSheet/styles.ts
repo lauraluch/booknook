@@ -8,7 +8,8 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
-  overflow-y: auto;
+  height: 100dvh;
+  overflow: auto;
 `;
 
 export const TitleAndDescription = styled.div`
@@ -33,4 +34,10 @@ export const RadioInputs = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const PickerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
