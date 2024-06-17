@@ -4,6 +4,7 @@ import { IBook } from "src/types/book/IBook";
 import { IBackBook } from "src/types/book/IBackBook";
 import { useAuthContext } from "@contexts/useAuthContext";
 import { postBook } from "@services/api/book/postBook";
+import { useGetBooks } from "@services/api/book/getBooks/hook";
 
 export function useBooks() {
   const [isCreating, setIsCreating] = useState(false);
@@ -11,33 +12,8 @@ export function useBooks() {
   const [form, setForm] = useState(makeCreateBookForm);
   const { user } = useAuthContext();
 
-  const booksMock = [
-    {
-      id: 1,
-      title: "Get Well Soon",
-      author: "Breton",
-      readAt: "2024-06-11",
-      finished: false,
-      favorite: true,
-      rating: 4,
-    },
-    {
-      id: 2,
-      title: "Obstacles",
-      author: "Syd Matters",
-      readAt: "2024-06-11",
-      finished: true,
-      favorite: true,
-    },
-    {
-      id: 3,
-      title: "Something good tonight will make me forget about you",
-      author: "Alt-J",
-      readAt: "2024-06-11",
-      finished: false,
-      favorite: false,
-    },
-  ];
+  // Hooks
+  const { data: books, isValidating, mutate } = useGetBooks(user.userId);
 
   function handleFormChange(key: keyof IBook, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -65,11 +41,10 @@ export function useBooks() {
         color: form.color || "#ffffff",
       };
 
-      console.log("book enviado: ", book);
-
       await postBook(book);
       setForm(makeCreateBookForm);
       setIsCreating(false);
+      mutate();
     } catch (error) {
       console.log("[handleCreateBook]: ", error.response);
     } finally {
@@ -78,7 +53,8 @@ export function useBooks() {
   }
 
   return {
-    booksMock,
+    books,
+    isLoadingBooks: !books && isValidating,
     handleCreateClick,
     handleOutsideClick,
     isCreating,

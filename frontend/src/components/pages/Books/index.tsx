@@ -24,10 +24,10 @@ export const Books: React.FC<Props> = (
   }
 ) => {
   const {
+    books,
     isCreating,
     handleCreateClick,
     handleOutsideClick,
-    booksMock,
     form,
     handleFormChange,
     handleCreateBook,
@@ -45,7 +45,7 @@ export const Books: React.FC<Props> = (
       </Header>
 
       <BooksContainer>
-        {booksMock.map((item) => (
+        {books?.map((item) => (
           <Book book={item} backgroundColor={""} borderColor={""} />
         ))}
       </BooksContainer>
