@@ -27,6 +27,10 @@ export const CreateBookSheet: React.FC<Props> = ({
   bookForm,
   onChangeForm,
 }) => {
+  useEffect(() => {
+    console.log(bookForm);
+  }, [bookForm]);
+
   return (
     <Sheet isOpen={isOpen} onOutsideClick={onOutsideClick}>
       <Container>
@@ -38,6 +42,11 @@ export const CreateBookSheet: React.FC<Props> = ({
             livro.
           </Typography>
         </TitleAndDescription>
+
+        <Rating
+          stars={bookForm.rating as IRating}
+          onStarClick={(v) => onChangeForm("rating", v)}
+        />
 
         <TitledInput
           title="Título"
