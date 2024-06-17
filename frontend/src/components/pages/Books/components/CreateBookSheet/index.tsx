@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 // Components
 
 // Styles
-import { Container, TitleAndDescription } from "./styles";
+import {
+  Container,
+  RadioContainer,
+  RadioInputs,
+  TitleAndDescription,
+} from "./styles";
 import theme from "@globals/theme";
 import { AnimatePresence } from "framer-motion";
 import { Sheet } from "src/components/toolkit/Sheet";
@@ -13,6 +18,9 @@ import { IBook } from "src/types/book/IBook";
 import { TitledInput } from "@components/inputs/TitledInput";
 import { Rating } from "@components/books/Rating";
 import { IRating } from "@components/books/Rating/types";
+import { Checkbox } from "@components/checks/Checkbox";
+import { RadioCheckbox } from "@components/checks/RadioCheckbox";
+import HeartSelectSVG from "@assets/icons/books/HeartSelect";
 
 interface Props {
   isOpen: boolean;
@@ -70,6 +78,31 @@ export const CreateBookSheet: React.FC<Props> = ({
           max={"2024-01-01"}
           min={"1900-01-01"}
         />
+
+        <RadioInputs>
+          <RadioContainer
+            onClick={() => onChangeForm("finished", !bookForm.finished)}
+          >
+            <RadioCheckbox isFilled={bookForm.finished} />
+
+            <Typography variant="s2" color={theme.colors.text.secondary}>
+              Livro já lido
+            </Typography>
+          </RadioContainer>
+
+          <RadioContainer
+            onClick={() => onChangeForm("favorite", !bookForm.favorite)}
+          >
+            <HeartSelectSVG
+              stroke={theme.colors.role.primary}
+              selected={bookForm.favorite}
+            />
+
+            <Typography variant="s2" color={theme.colors.text.secondary}>
+              Livro favorito
+            </Typography>
+          </RadioContainer>
+        </RadioInputs>
       </Container>
     </Sheet>
   );
