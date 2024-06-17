@@ -4,7 +4,7 @@ import { dbQuery } from "../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
   await dbQuery(
-    "INSERT INTO book (title, author, readAt, finished, favorite, user_id, rating, color) VALUES(?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO book (title, author, readAt, finished, favorite, user_id, rating, color) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
     [
       book.title,
       book.author,

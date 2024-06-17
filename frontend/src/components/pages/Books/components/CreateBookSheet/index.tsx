@@ -23,12 +23,15 @@ import { Checkbox } from "@components/checks/Checkbox";
 import { RadioCheckbox } from "@components/checks/RadioCheckbox";
 import HeartSelectSVG from "@assets/icons/books/HeartSelect";
 import { ColorPicker } from "@components/selectors/ColorPicker";
+import { Button } from "@components/buttons/Button";
 
 interface Props {
   isOpen: boolean;
   onOutsideClick: () => void;
   bookForm: IBook;
   onChangeForm: (key: keyof IBook, value: any) => void;
+  onConfirm: () => void;
+  isLoading: boolean;
 }
 
 export const CreateBookSheet: React.FC<Props> = ({
@@ -36,6 +39,8 @@ export const CreateBookSheet: React.FC<Props> = ({
   onOutsideClick,
   bookForm,
   onChangeForm,
+  onConfirm,
+  isLoading,
 }) => {
   useEffect(() => {
     console.log(bookForm);
@@ -88,7 +93,6 @@ export const CreateBookSheet: React.FC<Props> = ({
           value={bookForm.readAt}
           onChange={(v) => onChangeForm("readAt", v)}
           type="date"
-          max={"2024-01-01"}
           min={"1900-01-01"}
         />
 
@@ -116,6 +120,14 @@ export const CreateBookSheet: React.FC<Props> = ({
             </Typography>
           </RadioContainer>
         </RadioInputs>
+
+        <Button
+          label={"Criar livro"}
+          onClick={onConfirm}
+          loading={isLoading}
+          variant="primary"
+          style={{ alignSelf: "flex-end" }}
+        />
       </Container>
     </Sheet>
   );

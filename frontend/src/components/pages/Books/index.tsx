@@ -30,6 +30,8 @@ export const Books: React.FC<Props> = (
     booksMock,
     form,
     handleFormChange,
+    handleCreateBook,
+    loading,
   } = useBooks();
 
   return (
@@ -57,6 +59,8 @@ export const Books: React.FC<Props> = (
         onOutsideClick={handleOutsideClick}
         bookForm={form}
         onChangeForm={handleFormChange}
+        onConfirm={handleCreateBook}
+        isLoading={loading}
       />
     </Container>
   );
