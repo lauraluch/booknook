@@ -13,6 +13,7 @@ import FavoriteSVG from "@assets/icons/books/Favorite";
 interface Props {
   book: IBook;
   backgroundColor: string;
+  onClick: (book: IBook) => void;
 }
 
 const getAdjustedColor = (color: string) => {
@@ -23,15 +24,14 @@ const getAdjustedColor = (color: string) => {
     : chroma(color).brighten(3.5);
 };
 
-export const Book: React.FC<Props> = ({ book, backgroundColor }) => {
-  console.log(book);
-
+export const Book: React.FC<Props> = ({ book, backgroundColor, onClick }) => {
   return (
     <Container
       backgroundColor={backgroundColor}
       borderColor={chroma(backgroundColor || "#ffffff")
         .darken()
         .hex()}
+      onClick={() => onClick(book)}
     >
       {book.favorite && (
         <FavoriteContainer>

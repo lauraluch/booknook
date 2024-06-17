@@ -18,14 +18,19 @@ export const TitleAndDescription = styled.div`
   gap: 0.25rem;
 `;
 
-export const RadioContainer = styled.div`
+interface Props {
+  disabled: boolean;
+}
+
+export const RadioContainer = styled.div<Props>`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   height: 1.5rem;
   align-items: center;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   width: fit-content;
+  user-select: none;
 `;
 
 export const RadioInputs = styled.div`

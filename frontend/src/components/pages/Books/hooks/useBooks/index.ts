@@ -5,26 +5,40 @@ import { IBackBook } from "src/types/book/IBackBook";
 import { useAuthContext } from "@contexts/useAuthContext";
 import { postBook } from "@services/api/book/postBook";
 import { useGetBooks } from "@services/api/book/getBooks/hook";
+import { useRouter } from "next/router";
+
+export enum SheetStatus {
+  READING = 0,
+  CREATING = 1,
+  EDITING = 3,
+}
 
 export function useBooks() {
-  const [isCreating, setIsCreating] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sheetStatus, setSheetStatus] = useState<SheetStatus>(
+    SheetStatus.CREATING
+  );
   const [form, setForm] = useState(makeCreateBookForm);
   const { user } = useAuthContext();
 
   // Hooks
   const { data: books, isValidating, mutate } = useGetBooks(user.userId);
+  const { push } = useRouter();
 
   function handleFormChange(key: keyof IBook, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
   function handleCreateClick() {
-    setIsCreating(true);
+    setForm(makeCreateBookForm);
+    setIsOpen(true);
+    setSheetStatus(SheetStatus.CREATING);
   }
 
   function handleOutsideClick() {
-    setIsCreating(false);
+    setIsOpen(false);
+    setSheetStatus(SheetStatus.READING);
   }
 
   async function handleCreateBook() {
@@ -43,7 +57,8 @@ export function useBooks() {
 
       await postBook(book);
       setForm(makeCreateBookForm);
-      setIsCreating(false);
+      setIsOpen(false);
+      setSheetStatus(SheetStatus.READING);
       mutate();
     } catch (error) {
       console.log("[handleCreateBook]: ", error.response);
@@ -52,15 +67,39 @@ export function useBooks() {
     }
   }
 
+  function handleEditClick() {
+    setSheetStatus(SheetStatus.EDITING);
+  }
+
+  function handleBookClick(book: IBook) {
+    console.log(book);
+    setForm({
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      readAt: book.readAt,
+      finished: book.finished,
+      favorite: book.favorite,
+      rating: book.rating,
+      color: book.color,
+    });
+    setIsOpen(true);
+    setSheetStatus(SheetStatus.READING);
+  }
+
   return {
     books,
     isLoadingBooks: !books && isValidating,
     handleCreateClick,
     handleOutsideClick,
-    isCreating,
+    isOpen,
+    sheetStatus,
     form,
     handleFormChange,
     handleCreateBook,
+    handleEditClick,
+
     loading,
+    handleBookClick,
   };
 }

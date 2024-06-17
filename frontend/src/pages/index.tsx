@@ -6,7 +6,7 @@ import { Books } from "@pages/Books";
 const HomePage: React.FC = () => {
   return withAuthentication(
     <>
-      <Head title={"booknook | entrar"} />
+      <Head title={"booknook | livros"} />
       <Books />
     </>
   );

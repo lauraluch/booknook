@@ -8,7 +8,7 @@ import { BooksContainer, Container, CreateBookButton, Header } from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import SmallShineSVG from "@assets/icons/SmallShine";
 import theme from "@globals/theme";
-import { useBooks } from "./hooks/useBooks";
+import { SheetStatus, useBooks } from "./hooks/useBooks";
 import { Book } from "./components/Book";
 import AddSVG from "@assets/icons/buttons/Add";
 import { Sheet } from "src/components/toolkit/Sheet";
@@ -26,14 +26,27 @@ export const Books: React.FC<Props> = (
 ) => {
   const {
     books,
-    isCreating,
+    isOpen,
+    sheetStatus,
     handleCreateClick,
     handleOutsideClick,
     form,
     handleFormChange,
     handleCreateBook,
     loading,
+    handleBookClick,
+    handleEditClick,
   } = useBooks();
+
+  // useEffect(() => {
+  //   console.log(form);
+  // }, [form]);
+
+  function getButtonFunction() {
+    if (sheetStatus === SheetStatus.CREATING) return handleCreateBook;
+    else if (sheetStatus === SheetStatus.READING) return handleEditClick;
+    return null;
+  }
 
   return (
     <Container>
@@ -47,7 +60,11 @@ export const Books: React.FC<Props> = (
 
       <BooksContainer>
         {books?.map((item) => (
-          <Book book={mapBookFromBackend(item)} backgroundColor={item.color} />
+          <Book
+            book={mapBookFromBackend(item)}
+            backgroundColor={item.color}
+            onClick={handleBookClick}
+          />
         ))}
       </BooksContainer>
 
@@ -56,11 +73,12 @@ export const Books: React.FC<Props> = (
       </CreateBookButton>
 
       <CreateBookSheet
-        isOpen={isCreating}
+        isOpen={isOpen}
+        status={sheetStatus}
         onOutsideClick={handleOutsideClick}
         bookForm={form}
         onChangeForm={handleFormChange}
-        onConfirm={handleCreateBook}
+        onConfirm={getButtonFunction()}
         isLoading={loading}
       />
     </Container>

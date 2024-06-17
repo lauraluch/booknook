@@ -24,9 +24,11 @@ import { RadioCheckbox } from "@components/checks/RadioCheckbox";
 import HeartSelectSVG from "@assets/icons/books/HeartSelect";
 import { ColorPicker } from "@components/selectors/ColorPicker";
 import { Button } from "@components/buttons/Button";
+import { SheetStatus } from "@pages/Books/hooks/useBooks";
 
 interface Props {
   isOpen: boolean;
+  status: SheetStatus;
   onOutsideClick: () => void;
   bookForm: IBook;
   onChangeForm: (key: keyof IBook, value: any) => void;
@@ -36,25 +38,43 @@ interface Props {
 
 export const CreateBookSheet: React.FC<Props> = ({
   isOpen,
+  status,
   onOutsideClick,
   bookForm,
   onChangeForm,
   onConfirm,
   isLoading,
 }) => {
-  useEffect(() => {
-    console.log(bookForm);
-  }, [bookForm]);
+  const isDisabled = status === SheetStatus.READING;
+
+  function renderTitle() {
+    if (status === SheetStatus.CREATING) return "Criar um livro";
+    else if (status === SheetStatus.EDITING) return "Editando o livro";
+    return "Detalhes do livro";
+  }
+
+  function renderDescription() {
+    if (status === SheetStatus.CREATING)
+      return "Insira os dados abaixo e salve as alterações para criar um novo livro.";
+    else if (status === SheetStatus.EDITING)
+      return "Edite os detalhes do livro e salve suas alterações.";
+    return 'Confira os detalhes do livro abaixo. Clique no botão "Editar" para alterar os dados.';
+  }
+
+  function renderButtonLabel() {
+    if (status === SheetStatus.CREATING) return "Criar livro";
+    else if (status === SheetStatus.EDITING) return "Salvar alterações";
+    return "Editar";
+  }
 
   return (
     <Sheet isOpen={isOpen} onOutsideClick={onOutsideClick}>
       <Container>
         <TitleAndDescription>
-          <Typography variant="h4">Criar um livro</Typography>
+          <Typography variant="h4">{renderTitle()}</Typography>
 
           <Typography variant="b2" color={theme.colors.text.secondary}>
-            Insira os dados abaixo e salve as alterações para criar um novo
-            livro.
+            {renderDescription()}
           </Typography>
         </TitleAndDescription>
 
@@ -79,6 +99,7 @@ export const CreateBookSheet: React.FC<Props> = ({
           placeholder="título"
           value={bookForm.title}
           onChange={(v) => onChangeForm("title", v)}
+          disabled={isDisabled}
         />
 
         <TitledInput
@@ -86,6 +107,7 @@ export const CreateBookSheet: React.FC<Props> = ({
           placeholder="autor"
           value={bookForm.author}
           onChange={(v) => onChangeForm("author", v)}
+          disabled={isDisabled}
         />
 
         <TitledInput
@@ -94,11 +116,16 @@ export const CreateBookSheet: React.FC<Props> = ({
           onChange={(v) => onChangeForm("readAt", v)}
           type="date"
           min={"1900-01-01"}
+          disabled={isDisabled}
         />
 
         <RadioInputs>
           <RadioContainer
-            onClick={() => onChangeForm("finished", !bookForm.finished)}
+            onClick={() => {
+              if (isDisabled) return;
+              onChangeForm("finished", !bookForm.finished);
+            }}
+            disabled={isDisabled}
           >
             <RadioCheckbox isFilled={bookForm.finished} />
 
@@ -108,7 +135,11 @@ export const CreateBookSheet: React.FC<Props> = ({
           </RadioContainer>
 
           <RadioContainer
-            onClick={() => onChangeForm("favorite", !bookForm.favorite)}
+            onClick={() => {
+              if (isDisabled) return;
+              onChangeForm("favorite", !bookForm.favorite);
+            }}
+            disabled={isDisabled}
           >
             <HeartSelectSVG
               stroke={theme.colors.role.primary}
@@ -122,10 +153,10 @@ export const CreateBookSheet: React.FC<Props> = ({
         </RadioInputs>
 
         <Button
-          label={"Criar livro"}
+          label={renderButtonLabel()}
           onClick={onConfirm}
           loading={isLoading}
-          variant="primary"
+          variant={status === SheetStatus.READING ? "tertiary" : "primary"}
           style={{ alignSelf: "flex-end" }}
         />
       </Container>
