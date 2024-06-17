@@ -3,8 +3,8 @@ export type HttpGetBooksBook = {
   title: string;
   author: string;
   readAt: string;
-  finished: boolean;
-  favorite: boolean;
+  finished: number;
+  favorite: number;
   user_id?: number;
   rating?: number;
   color?: string;

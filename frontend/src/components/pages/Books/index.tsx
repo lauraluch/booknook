@@ -13,6 +13,7 @@ import { Book } from "./components/Book";
 import AddSVG from "@assets/icons/buttons/Add";
 import { Sheet } from "src/components/toolkit/Sheet";
 import { CreateBookSheet } from "./components/CreateBookSheet";
+import { mapBookFromBackend } from "src/types/book/utils";
 
 interface Props {
   // Props
@@ -46,7 +47,7 @@ export const Books: React.FC<Props> = (
 
       <BooksContainer>
         {books?.map((item) => (
-          <Book book={item} backgroundColor={""} borderColor={""} />
+          <Book book={mapBookFromBackend(item)} backgroundColor={item.color} />
         ))}
       </BooksContainer>
 

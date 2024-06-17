@@ -81,4 +81,11 @@ export const TypographyStyles = {
     font-weight: 400;
     letter-spacing: -0.2px;
   `,
+
+  d1: css`
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  `,
 };

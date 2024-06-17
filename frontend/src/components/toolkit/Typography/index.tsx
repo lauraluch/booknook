@@ -31,6 +31,7 @@ export const Typography: React.FC<TypographyProps> = ({
         caption: "caption",
         b1: "p",
         b2: "p",
+        d1: "p",
       }),
       []
     );
