@@ -13,9 +13,10 @@ import theme from "@globals/theme";
 
 interface Props {
   tag: ITag;
+  onDeleteClick: (tagId: number) => void;
 }
 
-export const Tag: React.FC<Props> = ({ tag }) => {
+export const Tag: React.FC<Props> = ({ tag, onDeleteClick }) => {
   return (
     <Container backgroundColor={tag.color}>
       <TagContainer backgroundColor={tag.color}>
@@ -24,7 +25,7 @@ export const Tag: React.FC<Props> = ({ tag }) => {
         </Typography>
       </TagContainer>
 
-      <DeleteButton>
+      <DeleteButton onClick={() => onDeleteClick(tag.id)}>
         <DeleteSVG stroke={theme.colors.role.error} />
       </DeleteButton>
     </Container>

@@ -56,9 +56,17 @@ export const Books: React.FC<Props> = (
 
   const {
     isOpen: isTagSheetOpen,
+    sheetStatus: tagSheetStatus,
     handleOpen: handleOpenTags,
     handleClose: handleCloseTags,
     tags,
+    handleCreateClick: handleCreateTagClick,
+    handleCreateTag,
+    handleDeleteTag,
+    form: tagForm,
+    handleFormChange: handleTagFormChange,
+    handleChangeStatus,
+    checkIfButtonIsDisabled: checkIfTagButtonIsDisabled,
   } = useTags();
 
   function getButtonFunction() {
@@ -117,9 +125,17 @@ export const Books: React.FC<Props> = (
       />
 
       <TagSheet
+        status={tagSheetStatus}
         isOpen={isTagSheetOpen}
         onOutsideClick={handleCloseTags}
         tags={tags}
+        onCreateClick={handleCreateTagClick}
+        onDeleteClick={handleDeleteTag}
+        onCreateConfirm={handleCreateTag}
+        tagForm={tagForm}
+        onFormChange={handleTagFormChange}
+        onBackButtonClick={() => handleChangeStatus(SheetStatus.READING)}
+        isButtonDisabled={checkIfTagButtonIsDisabled()}
       />
     </Container>
   );

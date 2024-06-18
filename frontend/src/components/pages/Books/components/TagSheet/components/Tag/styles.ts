@@ -21,7 +21,7 @@ export const TagContainer = styled.div<Props>`
   justify-content: space-between;
 
   background-color: ${({ theme, backgroundColor }) =>
-    backgroundColor ? `${backgroundColor}66` : theme.colors.layout.surface};
+    backgroundColor ? `${backgroundColor}40` : theme.colors.layout.surface};
 `;
 
 export const DeleteButton = styled.div`
