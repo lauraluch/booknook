@@ -38,6 +38,8 @@ export const Books: React.FC<Props> = (
     handleEditClick,
     handleEditConfirm,
     checkIfButtonIsDisabled,
+    modalRef,
+    handleDeleteBook,
   } = useBooks();
 
   // useEffect(() => {
@@ -83,6 +85,8 @@ export const Books: React.FC<Props> = (
         onConfirm={getButtonFunction()}
         isLoading={loading}
         isButtonDisabled={checkIfButtonIsDisabled()}
+        modalRef={modalRef}
+        onDeleteConfirm={handleDeleteBook}
       />
     </Container>
   );

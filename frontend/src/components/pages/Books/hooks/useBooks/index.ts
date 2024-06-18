@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { areFormsEqual, makeCreateBookForm, returnAlteredData } from "./utils";
 import { IBook } from "src/types/book/IBook";
 import { IBackBook } from "src/types/book/IBackBook";
@@ -8,6 +8,8 @@ import { useGetBooks } from "@services/api/book/getBooks/hook";
 import { useRouter } from "next/router";
 import { HttpPutBookPayload } from "@services/api/book/putBook/types";
 import { putBook } from "@services/api/book/putBook";
+import { deleteBook } from "@services/api/book/deleteBook";
+import { ActionModalMethods } from "src/components/modals/ActionModal/types";
 
 export enum SheetStatus {
   READING = 0,
@@ -25,9 +27,11 @@ export function useBooks() {
   const [backupForm, setBackupForm] = useState(makeCreateBookForm);
   const { user } = useAuthContext();
 
+  // Refs
+  const modalRef = useRef<ActionModalMethods>(null);
+
   // Hooks
   const { data: books, isValidating, mutate } = useGetBooks(user.userId);
-  const { push } = useRouter();
 
   function handleFormChange(key: keyof IBook, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -142,6 +146,18 @@ export function useBooks() {
     return false;
   }
 
+  async function handleDeleteBook() {
+    try {
+      await deleteBook(form.id);
+      modalRef.current.close();
+      setIsOpen(false);
+      mutate();
+    } catch (error) {
+      console.log("[handleDeleteBook]: ", error.response);
+      modalRef.current.close();
+    }
+  }
+
   return {
     books,
     isLoadingBooks: !books && isValidating,
@@ -154,8 +170,10 @@ export function useBooks() {
     handleCreateBook,
     handleEditClick,
     handleEditConfirm,
+    handleDeleteBook,
     checkIfButtonIsDisabled,
     loading,
     handleBookClick,
+    modalRef,
   };
 }

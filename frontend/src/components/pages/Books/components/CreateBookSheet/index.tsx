@@ -1,10 +1,11 @@
 // External Libraries
-import React, { useEffect, useState } from "react";
+import React, { MutableRefObject, useEffect, useState } from "react";
 
 // Components
 
 // Styles
 import {
+  ButtonsRow,
   Container,
   PickerContainer,
   RadioContainer,
@@ -25,6 +26,8 @@ import HeartSelectSVG from "@assets/icons/books/HeartSelect";
 import { ColorPicker } from "@components/selectors/ColorPicker";
 import { Button } from "@components/buttons/Button";
 import { SheetStatus } from "@pages/Books/hooks/useBooks";
+import { ActionModalMethods } from "src/components/modals/ActionModal/types";
+import { ActionModal } from "src/components/modals/ActionModal";
 
 interface Props {
   isOpen: boolean;
@@ -35,6 +38,8 @@ interface Props {
   onConfirm: () => void;
   isLoading: boolean;
   isButtonDisabled?: boolean;
+  modalRef: MutableRefObject<ActionModalMethods>;
+  onDeleteConfirm: () => void;
 }
 
 export const CreateBookSheet: React.FC<Props> = ({
@@ -46,6 +51,8 @@ export const CreateBookSheet: React.FC<Props> = ({
   onConfirm,
   isLoading,
   isButtonDisabled,
+  modalRef,
+  onDeleteConfirm,
 }) => {
   const isDisabled = status === SheetStatus.READING;
 
@@ -156,15 +163,35 @@ export const CreateBookSheet: React.FC<Props> = ({
           </RadioContainer>
         </RadioInputs>
 
-        <Button
-          label={renderButtonLabel()}
-          onClick={onConfirm}
-          loading={isLoading}
-          variant={status === SheetStatus.READING ? "tertiary" : "primary"}
-          style={{ alignSelf: "flex-end" }}
-          disabled={isButtonDisabled}
-        />
+        <ButtonsRow>
+          {status === SheetStatus.READING && (
+            <Button
+              label="Excluir"
+              labelColor={theme.colors.role.error}
+              onClick={() => modalRef.current.open()}
+              variant={"secondary"}
+            />
+          )}
+
+          <Button
+            label={renderButtonLabel()}
+            onClick={onConfirm}
+            loading={isLoading}
+            variant={status === SheetStatus.READING ? "tertiary" : "primary"}
+            disabled={isButtonDisabled}
+          />
+        </ButtonsRow>
       </Container>
+
+      <ActionModal
+        ref={modalRef}
+        title={"Excluir livro"}
+        description={"Tem certeza que deseja excluir esse livro?"}
+        confirmLabel="Confirmar"
+        cancelLabel="Cancelar"
+        onCancelPress={() => modalRef.current.close()}
+        onConfirmPress={onDeleteConfirm}
+      />
     </Sheet>
   );
 };

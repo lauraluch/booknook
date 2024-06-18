@@ -46,3 +46,11 @@ export const PickerContainer = styled.div`
   flex-direction: column;
   gap: 0.5rem;
 `;
+
+export const ButtonsRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  align-self: flex-end;
+`;
