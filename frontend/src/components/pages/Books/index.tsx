@@ -36,6 +36,8 @@ export const Books: React.FC<Props> = (
     loading,
     handleBookClick,
     handleEditClick,
+    handleEditConfirm,
+    checkIfButtonIsDisabled,
   } = useBooks();
 
   // useEffect(() => {
@@ -45,7 +47,7 @@ export const Books: React.FC<Props> = (
   function getButtonFunction() {
     if (sheetStatus === SheetStatus.CREATING) return handleCreateBook;
     else if (sheetStatus === SheetStatus.READING) return handleEditClick;
-    return null;
+    return handleEditConfirm;
   }
 
   return (
@@ -80,6 +82,7 @@ export const Books: React.FC<Props> = (
         onChangeForm={handleFormChange}
         onConfirm={getButtonFunction()}
         isLoading={loading}
+        isButtonDisabled={checkIfButtonIsDisabled()}
       />
     </Container>
   );

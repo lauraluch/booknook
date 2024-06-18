@@ -21,7 +21,11 @@ interface Props {
   selectedColor: string;
 }
 
-export const PickerSquare = styled.div`
+interface PickerProps {
+  disabled?: boolean;
+}
+
+export const PickerSquare = styled.div<PickerProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -32,7 +36,7 @@ export const PickerSquare = styled.div`
   height: 2rem;
   width: 2rem;
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 `;
 
 export const ColorSquare = styled.div<Props>`

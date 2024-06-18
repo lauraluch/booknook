@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { makeCreateBookForm } from "./utils";
+import { areFormsEqual, makeCreateBookForm, returnAlteredData } from "./utils";
 import { IBook } from "src/types/book/IBook";
 import { IBackBook } from "src/types/book/IBackBook";
 import { useAuthContext } from "@contexts/useAuthContext";
 import { postBook } from "@services/api/book/postBook";
 import { useGetBooks } from "@services/api/book/getBooks/hook";
 import { useRouter } from "next/router";
+import { HttpPutBookPayload } from "@services/api/book/putBook/types";
+import { putBook } from "@services/api/book/putBook";
 
 export enum SheetStatus {
   READING = 0,
@@ -20,6 +22,7 @@ export function useBooks() {
     SheetStatus.CREATING
   );
   const [form, setForm] = useState(makeCreateBookForm);
+  const [backupForm, setBackupForm] = useState(makeCreateBookForm);
   const { user } = useAuthContext();
 
   // Hooks
@@ -71,8 +74,37 @@ export function useBooks() {
     setSheetStatus(SheetStatus.EDITING);
   }
 
+  async function handleEditConfirm() {
+    setLoading(true);
+
+    try {
+      if (areFormsEqual(backupForm, form)) return;
+
+      const editedBook: HttpPutBookPayload = {
+        title: returnAlteredData(backupForm.title, form.title),
+        author: returnAlteredData(backupForm.author, form.author),
+        readAt: returnAlteredData(backupForm.readAt, form.readAt),
+        finished: returnAlteredData(backupForm.finished, form.finished) ? 1 : 0,
+        favorite: returnAlteredData(backupForm.favorite, form.favorite) ? 1 : 0,
+        rating: returnAlteredData(backupForm.rating, form.rating),
+        color: returnAlteredData(backupForm.color, form.color),
+      };
+
+      console.log(editedBook);
+
+      await putBook(form.id, editedBook);
+      setForm(makeCreateBookForm);
+      setIsOpen(false);
+      setSheetStatus(SheetStatus.READING);
+      mutate();
+    } catch (error) {
+      console.log("[handleEditConfirm]: ", error.response);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   function handleBookClick(book: IBook) {
-    console.log(book);
     setForm({
       id: book.id,
       title: book.title,
@@ -83,8 +115,31 @@ export function useBooks() {
       rating: book.rating,
       color: book.color,
     });
+
+    setBackupForm({
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      readAt: book.readAt,
+      finished: book.finished,
+      favorite: book.favorite,
+      rating: book.rating,
+      color: book.color,
+    });
+
     setIsOpen(true);
     setSheetStatus(SheetStatus.READING);
+  }
+
+  function checkIfButtonIsDisabled() {
+    if (sheetStatus === SheetStatus.CREATING) {
+      if (form.title.length === 0 || form.author.length === 0) return true;
+      return false;
+    } else if (sheetStatus === SheetStatus.EDITING) {
+      if (areFormsEqual(backupForm, form)) return true;
+      return false;
+    }
+    return false;
   }
 
   return {
@@ -98,7 +153,8 @@ export function useBooks() {
     handleFormChange,
     handleCreateBook,
     handleEditClick,
-
+    handleEditConfirm,
+    checkIfButtonIsDisabled,
     loading,
     handleBookClick,
   };

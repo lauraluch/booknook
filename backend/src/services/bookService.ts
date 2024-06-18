@@ -29,10 +29,15 @@ export const insertBook = async (book: Book) => {
 };
 
 export const updateBook = async (bookId: number, updates: Partial<Book>) => {
-  const { author, readAt, finished, favorite, rating, color } = updates;
+  const { title, author, readAt, finished, favorite, rating, color } = updates;
 
   const updateParams: any[] = [];
   let updateQuery = "UPDATE book SET";
+
+  if (title !== undefined) {
+    updateQuery += " title = ?,";
+    updateParams.push(title);
+  }
 
   if (author !== undefined) {
     updateQuery += " author = ?,";

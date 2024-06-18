@@ -10,9 +10,14 @@ import { HexColorPicker } from "react-colorful";
 interface Props {
   color: string;
   onColorChange: (value: string) => void;
+  disabled?: boolean;
 }
 
-export const ColorPicker: React.FC<Props> = ({ color, onColorChange }) => {
+export const ColorPicker: React.FC<Props> = ({
+  color,
+  onColorChange,
+  disabled,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +39,13 @@ export const ColorPicker: React.FC<Props> = ({ color, onColorChange }) => {
 
   return (
     <Container ref={containerRef}>
-      <PickerSquare onClick={() => setIsOpen(!isOpen)}>
+      <PickerSquare
+        onClick={() => {
+          if (disabled) return;
+          setIsOpen(!isOpen);
+        }}
+        disabled={disabled}
+      >
         <ColorSquare selectedColor={color} />
       </PickerSquare>
 

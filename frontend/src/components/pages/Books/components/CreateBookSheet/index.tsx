@@ -34,6 +34,7 @@ interface Props {
   onChangeForm: (key: keyof IBook, value: any) => void;
   onConfirm: () => void;
   isLoading: boolean;
+  isButtonDisabled?: boolean;
 }
 
 export const CreateBookSheet: React.FC<Props> = ({
@@ -44,6 +45,7 @@ export const CreateBookSheet: React.FC<Props> = ({
   onChangeForm,
   onConfirm,
   isLoading,
+  isButtonDisabled,
 }) => {
   const isDisabled = status === SheetStatus.READING;
 
@@ -81,6 +83,7 @@ export const CreateBookSheet: React.FC<Props> = ({
         <Rating
           stars={bookForm.rating as IRating}
           onStarClick={(v) => onChangeForm("rating", v)}
+          isCreating={isDisabled}
         />
 
         <PickerContainer>
@@ -91,6 +94,7 @@ export const CreateBookSheet: React.FC<Props> = ({
           <ColorPicker
             color={bookForm.color}
             onColorChange={(v) => onChangeForm("color", v)}
+            disabled={isDisabled}
           />
         </PickerContainer>
 
@@ -158,6 +162,7 @@ export const CreateBookSheet: React.FC<Props> = ({
           loading={isLoading}
           variant={status === SheetStatus.READING ? "tertiary" : "primary"}
           style={{ alignSelf: "flex-end" }}
+          disabled={isButtonDisabled}
         />
       </Container>
     </Sheet>
