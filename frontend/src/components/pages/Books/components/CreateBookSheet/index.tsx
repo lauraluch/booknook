@@ -198,12 +198,14 @@ export const CreateBookSheet: React.FC<Props> = ({
           </Typography>
         </TitleAndDescription> */}
 
-        <TagsFromBook
-          tags={tagsInBook}
-          allTags={tags}
-          onAddTagConfirm={handleAddTagToBook}
-          onRemoveTag={handleDeleteTagFromBook}
-        />
+        {status !== SheetStatus.CREATING && (
+          <TagsFromBook
+            tags={tagsInBook}
+            allTags={tags}
+            onAddTagConfirm={handleAddTagToBook}
+            onRemoveTag={handleDeleteTagFromBook}
+          />
+        )}
       </Container>
 
       <ActionModal

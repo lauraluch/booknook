@@ -135,6 +135,9 @@ export const TagsFromBook: React.FC<Props> = ({
         onChange={handleSelectChange}
         options={options}
         styles={colourStyles}
+        components={{
+          ClearIndicator: null,
+        }}
       />
     </Container>
   );

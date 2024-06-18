@@ -91,9 +91,9 @@ export const Books: React.FC<Props> = (
             <TagSVG stroke={theme.colors.role.primaryDarkest} />
           </HeaderButton>
 
-          <HeaderButton>
+          {/* <HeaderButton>
             <NoteSVG stroke={theme.colors.role.primaryDarkest} />
-          </HeaderButton>
+          </HeaderButton> */}
         </HeaderItems>
       </Header>
 
