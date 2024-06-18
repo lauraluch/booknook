@@ -11,14 +11,30 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   flex-direction: row;
-  /* position: fixed; */
   width: 100%;
   padding: 0 1rem;
   height: 4.5rem;
-  gap: 0.75rem;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.role.primaryLightest};
   align-items: center;
   border: 2px solid ${({ theme }) => theme.colors.role.primaryLight};
+  user-select: none;
+`;
+
+export const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: center;
+  user-select: none;
+`;
+
+export const HeaderItems = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: center;
+  user-select: none;
 `;
 
 export const BooksContainer = styled.div`
@@ -56,5 +72,24 @@ export const TitleAndDescriptionSheet = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  gap: 0.25rem;
+  gap: 0.5rem;
+`;
+
+export const HeaderButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 30rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: ${({ theme }) => theme.colors.role.primaryLight};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.role.primarySemilight};
+  }
+
+  transition: background-color 0.3s ease;
 `;

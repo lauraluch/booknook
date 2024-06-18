@@ -15,9 +15,10 @@ export default {
     role: {
       primary: "#CE93FF",
       primaryLight: "#E9CEFF",
+      primarySemilight: "#DFB7FF",
       primaryLightest: "#F3E4FF",
       primaryDark: "#BE71FF",
-      primaryDarkest: "#AC4AFD",
+      primaryDarkest: "#9751D1",
 
       success: "#54F6BC",
       successLight: "#96FFD9",
@@ -26,7 +27,8 @@ export default {
 
       error: "#FF6782",
       errorLight: "#FF97AA",
-      errorLightest: "#FFCDD6",
+      errorSemilight: "#FFCDD6",
+      errorLightest: "#FFE5EA",
       errorDark: "#DC2C4C",
     },
     shadows: {

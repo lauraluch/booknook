@@ -4,7 +4,15 @@ import React, { useEffect } from "react";
 // Components
 
 // Styles
-import { BooksContainer, Container, CreateBookButton, Header } from "./styles";
+import {
+  BooksContainer,
+  Container,
+  CreateBookButton,
+  Header,
+  HeaderButton,
+  HeaderItems,
+  Title,
+} from "./styles";
 import { Typography } from "src/components/toolkit/Typography";
 import SmallShineSVG from "@assets/icons/SmallShine";
 import theme from "@globals/theme";
@@ -14,6 +22,10 @@ import AddSVG from "@assets/icons/buttons/Add";
 import { Sheet } from "src/components/toolkit/Sheet";
 import { CreateBookSheet } from "./components/CreateBookSheet";
 import { mapBookFromBackend } from "src/types/book/utils";
+import TagSVG from "@assets/icons/header/Tag";
+import NoteSVG from "@assets/icons/header/Note";
+import { TagSheet } from "./components/TagSheet";
+import { useTags } from "./hooks/useTags";
 
 interface Props {
   // Props
@@ -42,9 +54,12 @@ export const Books: React.FC<Props> = (
     handleDeleteBook,
   } = useBooks();
 
-  // useEffect(() => {
-  //   console.log(form);
-  // }, [form]);
+  const {
+    isOpen: isTagSheetOpen,
+    handleOpen: handleOpenTags,
+    handleClose: handleCloseTags,
+    tags,
+  } = useTags();
 
   function getButtonFunction() {
     if (sheetStatus === SheetStatus.CREATING) return handleCreateBook;
@@ -55,11 +70,23 @@ export const Books: React.FC<Props> = (
   return (
     <Container>
       <Header>
-        <Typography variant="h2" color={theme.colors.text.primary}>
-          booknook
-        </Typography>
+        <Title>
+          <Typography variant="h2" color={theme.colors.text.primary}>
+            booknook
+          </Typography>
 
-        <SmallShineSVG />
+          <SmallShineSVG />
+        </Title>
+
+        <HeaderItems>
+          <HeaderButton onClick={handleOpenTags}>
+            <TagSVG stroke={theme.colors.role.primaryDarkest} />
+          </HeaderButton>
+
+          <HeaderButton>
+            <NoteSVG stroke={theme.colors.role.primaryDarkest} />
+          </HeaderButton>
+        </HeaderItems>
       </Header>
 
       <BooksContainer>
@@ -87,6 +114,12 @@ export const Books: React.FC<Props> = (
         isButtonDisabled={checkIfButtonIsDisabled()}
         modalRef={modalRef}
         onDeleteConfirm={handleDeleteBook}
+      />
+
+      <TagSheet
+        isOpen={isTagSheetOpen}
+        onOutsideClick={handleCloseTags}
+        tags={tags}
       />
     </Container>
   );
