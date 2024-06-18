@@ -10,6 +10,7 @@ import { Typography } from "src/components/toolkit/Typography";
 import CloseSVG from "@assets/icons/modals/Close";
 import DeleteSVG from "@assets/icons/tags/Delete";
 import theme from "@globals/theme";
+import { Badge } from "@components/structure/Badge";
 
 interface Props {
   tag: ITag;
@@ -19,11 +20,7 @@ interface Props {
 export const Tag: React.FC<Props> = ({ tag, onDeleteClick }) => {
   return (
     <Container backgroundColor={tag.color}>
-      <TagContainer backgroundColor={tag.color}>
-        <Typography variant="s1" color={tag.color}>
-          {tag.title}
-        </Typography>
-      </TagContainer>
+      <Badge title={tag.title} color={tag.color} />
 
       <DeleteButton onClick={() => onDeleteClick(tag.id)}>
         <DeleteSVG stroke={theme.colors.role.error} />

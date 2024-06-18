@@ -28,6 +28,9 @@ import { Button } from "@components/buttons/Button";
 import { SheetStatus } from "@pages/Books/hooks/useBooks";
 import { ActionModalMethods } from "src/components/modals/ActionModal/types";
 import { ActionModal } from "src/components/modals/ActionModal";
+import { useTagsInBooks } from "@pages/Books/hooks/useTagsInBook";
+import { TagsFromBook } from "./components/TagsFromBook";
+import { ITag } from "src/types/tag/ITag";
 
 interface Props {
   isOpen: boolean;
@@ -40,6 +43,7 @@ interface Props {
   isButtonDisabled?: boolean;
   modalRef: MutableRefObject<ActionModalMethods>;
   onDeleteConfirm: () => void;
+  tags: ITag[];
 }
 
 export const CreateBookSheet: React.FC<Props> = ({
@@ -53,6 +57,7 @@ export const CreateBookSheet: React.FC<Props> = ({
   isButtonDisabled,
   modalRef,
   onDeleteConfirm,
+  tags,
 }) => {
   const isDisabled = status === SheetStatus.READING;
 
@@ -75,6 +80,9 @@ export const CreateBookSheet: React.FC<Props> = ({
     else if (status === SheetStatus.EDITING) return "Salvar alterações";
     return "Editar";
   }
+
+  const { tagsInBook, handleAddTagToBook, handleDeleteTagFromBook } =
+    useTagsInBooks(bookForm.id);
 
   return (
     <Sheet isOpen={isOpen} onOutsideClick={onOutsideClick}>
@@ -181,6 +189,21 @@ export const CreateBookSheet: React.FC<Props> = ({
             disabled={isButtonDisabled}
           />
         </ButtonsRow>
+
+        {/* <TitleAndDescription>
+          <Typography variant="h6">{"Tags associadas"}</Typography>
+
+          <Typography variant="b2" color={theme.colors.text.secondary}>
+            {renderDescription()}
+          </Typography>
+        </TitleAndDescription> */}
+
+        <TagsFromBook
+          tags={tagsInBook}
+          allTags={tags}
+          onAddTagConfirm={handleAddTagToBook}
+          onRemoveTag={handleDeleteTagFromBook}
+        />
       </Container>
 
       <ActionModal

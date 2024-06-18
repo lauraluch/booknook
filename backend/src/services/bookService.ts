@@ -137,7 +137,11 @@ const insertTagInBook = async (bookId: number, tagId: number) => {
 };
 
 const readTagsInBook = async (bookId: number): Promise<Tag[]> => {
-  const query = "SELECT * FROM tagsAndBook WHERE book_id = ?";
+  const query = `
+    SELECT booktag.id, booktag.color, booktag.title, booktag.user_id 
+    FROM tagsAndBook 
+    JOIN booktag ON tagsAndBook.tag_id = booktag.id 
+    WHERE tagsAndBook.book_id = ?`;
   const result = await dbQuery(query, [bookId]);
 
   return result as Tag[];

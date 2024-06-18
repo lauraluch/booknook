@@ -10,6 +10,7 @@ import { HttpPutBookPayload } from "@services/api/book/putBook/types";
 import { putBook } from "@services/api/book/putBook";
 import { deleteBook } from "@services/api/book/deleteBook";
 import { ActionModalMethods } from "src/components/modals/ActionModal/types";
+import { useGetTagsInBooks } from "@services/api/book/getTagsInBook/hook";
 
 export enum SheetStatus {
   READING = 0,

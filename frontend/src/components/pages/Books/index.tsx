@@ -122,6 +122,7 @@ export const Books: React.FC<Props> = (
         isButtonDisabled={checkIfButtonIsDisabled()}
         modalRef={modalRef}
         onDeleteConfirm={handleDeleteBook}
+        tags={tags}
       />
 
       <TagSheet
