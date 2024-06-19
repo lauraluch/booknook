@@ -31,6 +31,7 @@ import { ActionModal } from "src/components/modals/ActionModal";
 import { useTagsInBooks } from "@pages/Books/hooks/useTagsInBook";
 import { TagsFromBook } from "./components/TagsFromBook";
 import { ITag } from "src/types/tag/ITag";
+import { EntriesFromBook } from "./components/EntriesFromBook";
 
 interface Props {
   isOpen: boolean;
@@ -206,6 +207,8 @@ export const CreateBookSheet: React.FC<Props> = ({
             onRemoveTag={handleDeleteTagFromBook}
           />
         )}
+
+        {status !== SheetStatus.CREATING && <EntriesFromBook />}
       </Container>
 
       <ActionModal
