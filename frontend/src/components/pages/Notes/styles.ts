@@ -37,7 +37,7 @@ export const HeaderItems = styled.div`
   user-select: none;
 `;
 
-export const BooksContainer = styled.div`
+export const NotesContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

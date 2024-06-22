@@ -91,10 +91,6 @@ export const Books: React.FC<Props> = (
           <HeaderButton onClick={handleOpenTags}>
             <TagSVG stroke={theme.colors.role.primaryDarkest} />
           </HeaderButton>
-
-          {/* <HeaderButton>
-            <NoteSVG stroke={theme.colors.role.primaryDarkest} />
-          </HeaderButton> */}
         </HeaderItems>
       </Header>
 

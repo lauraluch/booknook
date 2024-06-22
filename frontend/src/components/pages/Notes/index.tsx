@@ -5,7 +5,7 @@ import React from "react";
 
 // Styles
 import {
-  BooksContainer,
+  NotesContainer,
   Container,
   CreateNoteButton,
   Header,
@@ -18,6 +18,9 @@ import theme from "@globals/theme";
 import AddSVG from "@assets/icons/buttons/Add";
 import SmallShineSVG from "@assets/icons/SmallShine";
 import TagSVG from "@assets/icons/header/Tag";
+import { useNotes } from "./hooks/useNotes";
+import { ListEntry } from "./components/ListEntry";
+import { mapEntryFromBackend } from "src/types/entry/utils";
 
 interface Props {
   // Props
@@ -28,6 +31,8 @@ export const Notes: React.FC<Props> = (
     /* Props */
   }
 ) => {
+  const { notes, noteForm, handleFormChange, handleCreateNote } = useNotes();
+
   return (
     <Container>
       <Header>
@@ -46,15 +51,11 @@ export const Notes: React.FC<Props> = (
         </HeaderItems>
       </Header>
 
-      <BooksContainer>
-        {/* {books?.map((item) => (
-          <Book
-            book={mapBookFromBackend(item)}
-            backgroundColor={item.color}
-            onClick={handleBookClick}
-          />
-        ))} */}
-      </BooksContainer>
+      <NotesContainer>
+        {notes?.map((entry) => (
+          <ListEntry entry={mapEntryFromBackend(entry)} />
+        ))}
+      </NotesContainer>
 
       <CreateNoteButton>
         <AddSVG stroke={theme.colors.layout.white} />
