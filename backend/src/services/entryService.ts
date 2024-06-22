@@ -24,6 +24,68 @@ export const insertEntry = async (entry: Entry) => {
   return undefined;
 };
 
+export const readEntryById = async (
+  entryId: number
+): Promise<Entry | undefined> => {
+  const query = "SELECT * FROM bookentry WHERE entry_id = ?";
+  const result = await dbQuery(query, [entryId]);
+
+  if (Array.isArray(result) && result.length > 0) {
+    return result[0] as Entry;
+  }
+
+  return undefined;
+};
+
+const readEntriesFromBook = async (bookId: number): Promise<Entry[]> => {
+  console.log(bookId);
+
+  const query = "SELECT * FROM bookentry WHERE book_id = ?";
+  const result = await dbQuery(query, [bookId]);
+
+  return result as Entry[];
+};
+
+export const updateEntry = async (entryId: number, updates: Partial<Entry>) => {
+  const { title, description, last_modified_at } = updates;
+
+  const updateParams: any[] = [];
+  let updateQuery = "UPDATE bookentry SET";
+
+  if (title !== undefined) {
+    updateQuery += " title = ?,";
+    updateParams.push(title);
+  }
+
+  if (description !== undefined) {
+    updateQuery += " description = ?,";
+    updateParams.push(description);
+  }
+
+  if (last_modified_at !== undefined) {
+    updateQuery += " last_modified_at = ?,";
+    updateParams.push(last_modified_at);
+  }
+
+  updateQuery = updateQuery.slice(0, -1);
+
+  updateQuery += " WHERE id = ?";
+  updateParams.push(entryId);
+
+  await dbQuery(updateQuery, updateParams);
+};
+
+const deleteEntry = async (entryId: number) => {
+  const deleteParams: any[] = [entryId];
+  const deleteQuery = "DELETE FROM bookentry WHERE entry_id = ?";
+
+  await dbQuery(deleteQuery, deleteParams);
+};
+
 export const entryService = {
   insertEntry,
+  updateEntry,
+  readEntryById,
+  readEntriesFromBook,
+  deleteEntry,
 };
