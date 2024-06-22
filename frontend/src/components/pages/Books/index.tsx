@@ -52,6 +52,7 @@ export const Books: React.FC<Props> = (
     checkIfButtonIsDisabled,
     modalRef,
     handleDeleteBook,
+    handleNoteClick,
   } = useBooks();
 
   const {
@@ -123,6 +124,7 @@ export const Books: React.FC<Props> = (
         modalRef={modalRef}
         onDeleteConfirm={handleDeleteBook}
         tags={tags}
+        onNoteClick={handleNoteClick}
       />
 
       <TagSheet

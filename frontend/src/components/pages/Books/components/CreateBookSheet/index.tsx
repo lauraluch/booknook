@@ -7,9 +7,11 @@ import React, { MutableRefObject, useEffect, useState } from "react";
 import {
   ButtonsRow,
   Container,
+  HeaderButton,
   PickerContainer,
   RadioContainer,
   RadioInputs,
+  TitleAndButton,
   TitleAndDescription,
 } from "./styles";
 import theme from "@globals/theme";
@@ -32,6 +34,8 @@ import { useTagsInBooks } from "@pages/Books/hooks/useTagsInBook";
 import { TagsFromBook } from "./components/TagsFromBook";
 import { ITag } from "src/types/tag/ITag";
 import { EntriesFromBook } from "./components/EntriesFromBook";
+import NoteSVG from "@assets/icons/header/Note";
+import SmallNoteSVG from "@assets/icons/header/SmallNote";
 
 interface Props {
   isOpen: boolean;
@@ -45,6 +49,7 @@ interface Props {
   modalRef: MutableRefObject<ActionModalMethods>;
   onDeleteConfirm: () => void;
   tags: ITag[];
+  onNoteClick: (bookId: number) => void;
 }
 
 export const CreateBookSheet: React.FC<Props> = ({
@@ -59,6 +64,7 @@ export const CreateBookSheet: React.FC<Props> = ({
   modalRef,
   onDeleteConfirm,
   tags,
+  onNoteClick,
 }) => {
   const isDisabled = status === SheetStatus.READING;
 
@@ -88,13 +94,21 @@ export const CreateBookSheet: React.FC<Props> = ({
   return (
     <Sheet isOpen={isOpen} onOutsideClick={onOutsideClick}>
       <Container>
-        <TitleAndDescription>
-          <Typography variant="h4">{renderTitle()}</Typography>
+        <TitleAndButton>
+          <TitleAndDescription>
+            <Typography variant="h4">{renderTitle()}</Typography>
 
-          <Typography variant="b2" color={theme.colors.text.secondary}>
-            {renderDescription()}
-          </Typography>
-        </TitleAndDescription>
+            <Typography variant="b2" color={theme.colors.text.secondary}>
+              {renderDescription()}
+            </Typography>
+          </TitleAndDescription>
+
+          {status !== SheetStatus.CREATING && (
+            <HeaderButton onClick={() => onNoteClick(bookForm.id)}>
+              <SmallNoteSVG stroke={theme.colors.role.primaryDarkest} />
+            </HeaderButton>
+          )}
+        </TitleAndButton>
 
         <Rating
           stars={bookForm.rating as IRating}

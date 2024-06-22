@@ -33,6 +33,7 @@ export function useBooks() {
 
   // Hooks
   const { data: books, isValidating, mutate } = useGetBooks(user.userId);
+  const { push } = useRouter();
 
   function handleFormChange(key: keyof IBook, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -42,6 +43,10 @@ export function useBooks() {
     setForm(makeCreateBookForm);
     setIsOpen(true);
     setSheetStatus(SheetStatus.CREATING);
+  }
+
+  function handleNoteClick(bookId: number) {
+    push(`/book/${bookId}/notes`);
   }
 
   function handleOutsideClick() {
@@ -176,5 +181,6 @@ export function useBooks() {
     loading,
     handleBookClick,
     modalRef,
+    handleNoteClick,
   };
 }

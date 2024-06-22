@@ -18,6 +18,14 @@ export const TitleAndDescription = styled.div`
   gap: 0.25rem;
 `;
 
+export const TitleAndButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+`;
+
 interface Props {
   disabled: boolean;
 }
@@ -53,4 +61,23 @@ export const ButtonsRow = styled.div`
   align-items: center;
   gap: 1rem;
   align-self: flex-end;
+`;
+
+export const HeaderButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 30rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: ${({ theme }) => theme.colors.role.primaryLight};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.role.primarySemilight};
+  }
+
+  transition: background-color 0.3s ease;
 `;
