@@ -3,19 +3,23 @@ import { Tag } from "../models/tagModel";
 import { dbQuery } from "../repository/dbConnection";
 
 export const insertBook = async (book: Book) => {
-  await dbQuery(
-    "INSERT INTO book (title, author, readAt, finished, favorite, user_id, rating, color) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      book.title,
-      book.author,
-      book.readAt,
-      book.finished,
-      book.favorite,
-      book.user_id,
-      book.rating,
-      book.color,
-    ]
-  );
+  try {
+    await dbQuery(
+      "INSERT INTO book (title, author, readAt, finished, favorite, user_id, rating, color) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        book.title,
+        book.author,
+        book.readAt,
+        book.finished,
+        book.favorite,
+        book.user_id,
+        book.rating,
+        book.color,
+      ]
+    );
+  } catch (e) {
+    console.log(e);
+  }
 
   const actionReturn = await dbQuery(
     "SELECT seq AS Id FROM sqlite_sequence WHERE name = 'book'"

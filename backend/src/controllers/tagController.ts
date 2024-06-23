@@ -84,6 +84,7 @@ const readAllTags = (req: Request, res: Response) => {
   tagService
     .readAllTags(userId)
     .then((tagList) => {
+      console.log(tagList);
       if (!tagList) {
         return notFound(res, "Tags not found.");
       }

@@ -100,6 +100,9 @@ const readUserByUsername = (req: Request, res: Response) => {
 export const validateUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
+  console.log(username);
+  console.log(password);
+
   try {
     if (!username || !password) {
       return badRequest(res, "Invalid username or password.");

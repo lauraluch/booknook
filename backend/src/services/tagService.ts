@@ -47,7 +47,7 @@ const readAllTagsFromUser = async (
     return result as Tag[];
   }
 
-  return undefined;
+  return [];
 };
 
 export const tagService = {

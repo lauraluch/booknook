@@ -34,3 +34,4 @@ start.js
 /backend/.env
 /backend/db-bnk.db
 /backend/node_modules
+/backend/dist
