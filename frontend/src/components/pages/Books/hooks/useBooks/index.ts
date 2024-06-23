@@ -72,7 +72,7 @@ export function useBooks() {
       setForm(makeCreateBookForm);
       setIsOpen(false);
       setSheetStatus(SheetStatus.READING);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleCreateBook]: ", error.response);
     } finally {
@@ -106,7 +106,7 @@ export function useBooks() {
       setForm(makeCreateBookForm);
       setIsOpen(false);
       setSheetStatus(SheetStatus.READING);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleEditConfirm]: ", error.response);
     } finally {
@@ -157,7 +157,7 @@ export function useBooks() {
       await deleteBook(form.id);
       modalRef.current.close();
       setIsOpen(false);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleDeleteBook]: ", error.response);
       modalRef.current.close();

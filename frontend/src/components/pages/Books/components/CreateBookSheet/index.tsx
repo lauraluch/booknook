@@ -221,8 +221,6 @@ export const CreateBookSheet: React.FC<Props> = ({
             onRemoveTag={handleDeleteTagFromBook}
           />
         )}
-
-        {status !== SheetStatus.CREATING && <EntriesFromBook />}
       </Container>
 
       <ActionModal

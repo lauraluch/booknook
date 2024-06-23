@@ -62,7 +62,7 @@ export function useNotes() {
       setForm(makeCreateEntryForm);
       setIsOpen(false);
       setSheetStatus(SheetStatus.READING);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleCreateNote]: ", error.response);
     } finally {
@@ -125,7 +125,7 @@ export function useNotes() {
       setForm(makeCreateEntryForm);
       setIsOpen(false);
       setSheetStatus(SheetStatus.READING);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleEditConfirm]: ", error.response);
     } finally {
@@ -138,7 +138,7 @@ export function useNotes() {
       await deleteEntry(form.id);
       modalRef.current.close();
       setIsOpen(false);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleDeleteNote]: ", error.response);
       modalRef.current.close();

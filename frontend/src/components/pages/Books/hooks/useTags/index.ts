@@ -48,7 +48,7 @@ export function useTags() {
       await postTag(tag);
       setForm(makeCreateTagForm);
       setSheetStatus(SheetStatus.READING);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleCreateTag]: ", error.response);
     } finally {
@@ -59,7 +59,7 @@ export function useTags() {
   async function handleDeleteTag(tagId: number) {
     try {
       await deleteTag(tagId);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleDeleteBook]: ", error.response);
     }

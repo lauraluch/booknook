@@ -9,7 +9,7 @@ export function useTagsInBooks(bookId: number) {
   async function handleAddTagToBook(tagId: number) {
     try {
       await postTagInBook(bookId, tagId);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleAddTagToBook]", error);
     }
@@ -18,7 +18,7 @@ export function useTagsInBooks(bookId: number) {
   async function handleDeleteTagFromBook(tagId: number) {
     try {
       await deleteTagFromBook(bookId, tagId);
-      mutate();
+      await mutate();
     } catch (error) {
       console.log("[handleDeleteTagFromBook]", error);
     }
