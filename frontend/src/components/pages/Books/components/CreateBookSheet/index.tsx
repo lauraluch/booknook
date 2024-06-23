@@ -33,7 +33,6 @@ import { ActionModal } from "src/components/modals/ActionModal";
 import { useTagsInBooks } from "@pages/Books/hooks/useTagsInBook";
 import { TagsFromBook } from "./components/TagsFromBook";
 import { ITag } from "src/types/tag/ITag";
-import { EntriesFromBook } from "./components/EntriesFromBook";
 import NoteSVG from "@assets/icons/header/Note";
 import SmallNoteSVG from "@assets/icons/header/SmallNote";
 

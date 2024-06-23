@@ -89,18 +89,15 @@ export function useBooks() {
 
     try {
       if (areFormsEqual(backupForm, form)) return;
-
       const editedBook: HttpPutBookPayload = {
         title: returnAlteredData(backupForm.title, form.title),
         author: returnAlteredData(backupForm.author, form.author),
         readAt: returnAlteredData(backupForm.readAt, form.readAt),
-        finished: returnAlteredData(backupForm.finished, form.finished) ? 1 : 0,
-        favorite: returnAlteredData(backupForm.favorite, form.favorite) ? 1 : 0,
+        finished: returnAlteredData(backupForm.finished, form.finished),
+        favorite: returnAlteredData(backupForm.favorite, form.favorite),
         rating: returnAlteredData(backupForm.rating, form.rating),
         color: returnAlteredData(backupForm.color, form.color),
       };
-
-      console.log(editedBook);
 
       await putBook(form.id, editedBook);
       setForm(makeCreateBookForm);
