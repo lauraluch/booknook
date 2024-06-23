@@ -163,7 +163,7 @@ export const CreateBookSheet: React.FC<Props> = ({
             <RadioCheckbox isFilled={bookForm.finished} />
 
             <Typography variant="s2" color={theme.colors.text.secondary}>
-              Livro já lido
+              Livro terminado
             </Typography>
           </RadioContainer>
 

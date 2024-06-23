@@ -23,6 +23,8 @@ import { ListEntry } from "./components/ListEntry";
 import { mapEntryFromBackend } from "src/types/entry/utils";
 import { NoteSheet } from "./components/NoteSheet";
 import { SheetStatus } from "@pages/Books/hooks/useBooks";
+import { useRouter } from "next/router";
+import { BodyContainer } from "@pages/Books/styles";
 
 interface Props {
   // Props
@@ -33,6 +35,7 @@ export const Notes: React.FC<Props> = (
     /* Props */
   }
 ) => {
+  const { push } = useRouter();
   const {
     notes,
     noteForm,
@@ -60,29 +63,29 @@ export const Notes: React.FC<Props> = (
   return (
     <Container>
       <Header>
-        <Title>
+        <Title onClick={() => push(`/`)}>
           <Typography variant="h2" color={theme.colors.text.primary}>
             booknook
           </Typography>
 
           <SmallShineSVG />
         </Title>
-
-        <HeaderItems>
-          {/* <HeaderButton>
-            <TagSVG stroke={theme.colors.role.primaryDarkest} />
-          </HeaderButton> */}
-        </HeaderItems>
       </Header>
 
-      <NotesContainer>
-        {notes?.map((entry) => (
-          <ListEntry
-            entry={mapEntryFromBackend(entry)}
-            onClick={handleNoteClick}
-          />
-        ))}
-      </NotesContainer>
+      <BodyContainer>
+        <Typography variant="h6" color={theme.colors.text.primary}>
+          Notas do livro
+        </Typography>
+
+        <NotesContainer>
+          {notes?.map((entry) => (
+            <ListEntry
+              entry={mapEntryFromBackend(entry)}
+              onClick={handleNoteClick}
+            />
+          ))}
+        </NotesContainer>
+      </BodyContainer>
 
       <CreateNoteButton onClick={handleCreateClick}>
         <AddSVG stroke={theme.colors.layout.white} />

@@ -27,6 +27,7 @@ export const Title = styled.div`
   gap: 0.75rem;
   align-items: center;
   user-select: none;
+  cursor: pointer;
 `;
 
 export const HeaderItems = styled.div`
@@ -37,12 +38,19 @@ export const HeaderItems = styled.div`
   user-select: none;
 `;
 
+export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  height: 100%;
+`;
+
 export const NotesContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
-  padding: 2rem;
   gap: 2rem;
 `;
 

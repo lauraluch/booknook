@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 
 // Styles
 import {
+  BodyContainer,
   BooksContainer,
   Container,
   CreateBookButton,
@@ -26,6 +27,7 @@ import TagSVG from "@assets/icons/header/Tag";
 import NoteSVG from "@assets/icons/header/Note";
 import { TagSheet } from "./components/TagSheet";
 import { useTags } from "./hooks/useTags";
+import { useRouter } from "next/router";
 
 interface Props {
   // Props
@@ -36,6 +38,8 @@ export const Books: React.FC<Props> = (
     /* Props */
   }
 ) => {
+  const { push } = useRouter();
+
   const {
     books,
     isOpen,
@@ -79,7 +83,7 @@ export const Books: React.FC<Props> = (
   return (
     <Container>
       <Header>
-        <Title>
+        <Title onClick={() => push(`/`)}>
           <Typography variant="h2" color={theme.colors.text.primary}>
             booknook
           </Typography>
@@ -94,15 +98,21 @@ export const Books: React.FC<Props> = (
         </HeaderItems>
       </Header>
 
-      <BooksContainer>
-        {books?.map((item) => (
-          <Book
-            book={mapBookFromBackend(item)}
-            backgroundColor={item.color}
-            onClick={handleBookClick}
-          />
-        ))}
-      </BooksContainer>
+      <BodyContainer>
+        <Typography variant="h6" color={theme.colors.text.primary}>
+          Seus livros
+        </Typography>
+
+        <BooksContainer>
+          {books?.map((item) => (
+            <Book
+              book={mapBookFromBackend(item)}
+              backgroundColor={item.color}
+              onClick={handleBookClick}
+            />
+          ))}
+        </BooksContainer>
+      </BodyContainer>
 
       <CreateBookButton onClick={handleCreateClick}>
         <AddSVG stroke={theme.colors.layout.white} />
