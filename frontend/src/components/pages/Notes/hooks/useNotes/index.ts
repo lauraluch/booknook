@@ -8,6 +8,7 @@ import { IEntry } from "src/types/entry/IEntry";
 import { IBackEntry } from "src/types/entry/IBackEntry";
 import { format } from "date-fns";
 import { postEntry } from "@services/api/entry/postEntry";
+import { areFormsEqual } from "@pages/Books/hooks/useBooks/utils";
 
 export function useNotes() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,11 +26,20 @@ export function useNotes() {
   const { query } = useRouter();
   const { data: notes, isValidating, mutate } = useGetEntries(query.id as any);
 
-  //   console.log(notes);
-
   // Functions
   function handleFormChange(key: keyof IEntry, value: any) {
     setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function handleOutsideClick() {
+    setIsOpen(false);
+    setSheetStatus(SheetStatus.READING);
+  }
+
+  function handleCreateClick() {
+    setForm(makeCreateEntryForm);
+    setIsOpen(true);
+    setSheetStatus(SheetStatus.CREATING);
   }
 
   async function handleCreateNote() {
@@ -54,11 +64,29 @@ export function useNotes() {
     }
   }
 
+  function checkIfButtonIsDisabled() {
+    if (sheetStatus === SheetStatus.CREATING) {
+      if (form.title.length === 0) return true;
+      return false;
+    } else if (sheetStatus === SheetStatus.EDITING) {
+      if (areFormsEqual(backupForm, form)) return true;
+      return false;
+    }
+    return false;
+  }
+
   return {
     notes,
+    isOpen,
+    loading,
+    sheetStatus,
     isLoadingBooks: !notes && isValidating,
     noteForm: form,
+    modalRef,
     handleFormChange,
     handleCreateNote,
+    handleOutsideClick,
+    checkIfButtonIsDisabled,
+    handleCreateClick,
   };
 }
