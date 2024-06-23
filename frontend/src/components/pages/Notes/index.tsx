@@ -44,14 +44,16 @@ export const Notes: React.FC<Props> = (
     handleOutsideClick,
     checkIfButtonIsDisabled,
     handleCreateClick,
+    handleNoteClick,
+    handleEditClick,
+    handleEditConfirm,
     modalRef,
   } = useNotes();
 
   function getButtonFunction() {
     if (sheetStatus === SheetStatus.CREATING) return handleCreateNote;
-    // TODO: alterar para update
-    else if (sheetStatus === SheetStatus.READING) return null;
-    return null;
+    else if (sheetStatus === SheetStatus.READING) return handleEditClick;
+    return handleEditConfirm;
   }
 
   return (
@@ -74,41 +76,16 @@ export const Notes: React.FC<Props> = (
 
       <NotesContainer>
         {notes?.map((entry) => (
-          <ListEntry entry={mapEntryFromBackend(entry)} />
+          <ListEntry
+            entry={mapEntryFromBackend(entry)}
+            onClick={handleNoteClick}
+          />
         ))}
       </NotesContainer>
 
       <CreateNoteButton onClick={handleCreateClick}>
         <AddSVG stroke={theme.colors.layout.white} />
       </CreateNoteButton>
-
-      {/* <CreateBookSheet
-        isOpen={isOpen}
-        status={sheetStatus}
-        onOutsideClick={handleOutsideClick}
-        bookForm={form}
-        onChangeForm={handleFormChange}
-        onConfirm={getButtonFunction()}
-        isLoading={loading}
-        isButtonDisabled={checkIfButtonIsDisabled()}
-        modalRef={modalRef}
-        onDeleteConfirm={handleDeleteBook}
-        tags={tags}
-      />
-
-      <TagSheet
-        status={tagSheetStatus}
-        isOpen={isTagSheetOpen}
-        onOutsideClick={handleCloseTags}
-        tags={tags}
-        onCreateClick={handleCreateTagClick}
-        onDeleteClick={handleDeleteTag}
-        onCreateConfirm={handleCreateTag}
-        tagForm={tagForm}
-        onFormChange={handleTagFormChange}
-        onBackButtonClick={() => handleChangeStatus(SheetStatus.READING)}
-        isButtonDisabled={checkIfTagButtonIsDisabled()}
-      /> */}
 
       <NoteSheet
         isOpen={isOpen}

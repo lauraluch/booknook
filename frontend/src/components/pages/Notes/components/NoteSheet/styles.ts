@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -73,4 +74,10 @@ export const HeaderButton = styled.div`
   }
 
   transition: background-color 0.3s ease;
+`;
+
+export const NoteDescription = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;

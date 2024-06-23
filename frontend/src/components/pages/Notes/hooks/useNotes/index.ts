@@ -8,7 +8,12 @@ import { IEntry } from "src/types/entry/IEntry";
 import { IBackEntry } from "src/types/entry/IBackEntry";
 import { format } from "date-fns";
 import { postEntry } from "@services/api/entry/postEntry";
-import { areFormsEqual } from "@pages/Books/hooks/useBooks/utils";
+import {
+  areFormsEqual,
+  returnAlteredData,
+} from "@pages/Books/hooks/useBooks/utils";
+import { HttpPutEntryPayload } from "@services/api/entry/putBook/types";
+import { putEntry } from "@services/api/entry/putBook";
 
 export function useNotes() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +80,58 @@ export function useNotes() {
     return false;
   }
 
+  function handleNoteClick(note: IEntry) {
+    setForm({
+      id: note.id,
+      bookId: note.bookId,
+      title: note.title,
+      description: note.description,
+      lastModifiedAt: note.lastModifiedAt,
+    });
+
+    setBackupForm({
+      id: note.id,
+      bookId: note.bookId,
+      title: note.title,
+      description: note.description,
+      lastModifiedAt: note.lastModifiedAt,
+    });
+
+    setIsOpen(true);
+    setSheetStatus(SheetStatus.READING);
+  }
+
+  function handleEditClick() {
+    setSheetStatus(SheetStatus.EDITING);
+  }
+
+  async function handleEditConfirm() {
+    setLoading(true);
+
+    try {
+      if (areFormsEqual(backupForm, form)) return;
+
+      const editedEntry: HttpPutEntryPayload = {
+        title: returnAlteredData(backupForm.title, form.title),
+        description: returnAlteredData(
+          backupForm.description,
+          form.description
+        ),
+        last_modified_at: format(Date.now(), "yyyy-MM-dd"),
+      };
+
+      await putEntry(form.id, editedEntry);
+      setForm(makeCreateEntryForm);
+      setIsOpen(false);
+      setSheetStatus(SheetStatus.READING);
+      mutate();
+    } catch (error) {
+      console.log("[handleEditConfirm]: ", error.response);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return {
     notes,
     isOpen,
@@ -88,5 +145,8 @@ export function useNotes() {
     handleOutsideClick,
     checkIfButtonIsDisabled,
     handleCreateClick,
+    handleNoteClick,
+    handleEditClick,
+    handleEditConfirm,
   };
 }

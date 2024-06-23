@@ -69,7 +69,7 @@ export const updateEntry = async (entryId: number, updates: Partial<Entry>) => {
 
   updateQuery = updateQuery.slice(0, -1);
 
-  updateQuery += " WHERE id = ?";
+  updateQuery += " WHERE entry_id = ?";
   updateParams.push(entryId);
 
   await dbQuery(updateQuery, updateParams);

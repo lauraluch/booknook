@@ -8,6 +8,7 @@ import {
   ButtonsRow,
   Container,
   HeaderButton,
+  NoteDescription,
   RadioContainer,
   RadioInputs,
   TitleAndButton,
@@ -23,6 +24,7 @@ import { TitledInput } from "@components/inputs/TitledInput";
 import { Button } from "@components/buttons/Button";
 import { ActionModal } from "src/components/modals/ActionModal";
 import { TextField } from "@components/inputs/TextField";
+import { AnimatePresence } from "framer-motion";
 
 interface Props {
   isOpen: boolean;
@@ -82,21 +84,31 @@ export const NoteSheet: React.FC<Props> = ({
           </Typography>
         </TitleAndDescription>
 
-        <TitledInput
-          title="Título"
-          placeholder="Título"
-          value={noteForm.title}
-          onChange={(v) => onChangeForm("title", v)}
-          disabled={isDisabled}
-        />
+        <AnimatePresence>
+          <NoteDescription
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.38 }}
+          >
+            <TitledInput
+              title="Título"
+              placeholder="Título"
+              value={noteForm.title}
+              onChange={(v) => onChangeForm("title", v)}
+              disabled={isDisabled}
+            />
 
-        <TextField
-          title="Descrição"
-          value={noteForm.description}
-          height={26}
-          placeholder="Escreva os detalhes da sua nota..."
-          onChange={(v) => onChangeForm("description", v)}
-        />
+            <TextField
+              title="Descrição"
+              value={noteForm.description}
+              height={26}
+              placeholder="Escreva os detalhes da sua nota..."
+              onChange={(v) => onChangeForm("description", v)}
+              disabled={isDisabled}
+            />
+          </NoteDescription>
+        </AnimatePresence>
 
         <ButtonsRow>
           {status === SheetStatus.READING && (

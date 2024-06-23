@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 0.5rem;
   width: 22rem;
+  gap: 0.15rem;
 
   /* Quadrados */
   /* background-color: #ffedab;
@@ -34,4 +35,11 @@ export const Container = styled.div`
   border-radius: 0.25rem;
   border: 2px solid #ffdd61;
   justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: ${({ theme }) => `0px 0px 0px 3px #ffedab99`};
+  }
+
+  transition: box-shadow 0.2s ease-in-out;
 `;
