@@ -12,8 +12,9 @@ import {
   areFormsEqual,
   returnAlteredData,
 } from "@pages/Books/hooks/useBooks/utils";
-import { HttpPutEntryPayload } from "@services/api/entry/putBook/types";
-import { putEntry } from "@services/api/entry/putBook";
+import { HttpPutEntryPayload } from "@services/api/entry/putEntry/types";
+import { putEntry } from "@services/api/entry/putEntry";
+import { deleteEntry } from "@services/api/entry/deleteEntry";
 
 export function useNotes() {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,6 +133,18 @@ export function useNotes() {
     }
   }
 
+  async function handleDeleteNote() {
+    try {
+      await deleteEntry(form.id);
+      modalRef.current.close();
+      setIsOpen(false);
+      mutate();
+    } catch (error) {
+      console.log("[handleDeleteNote]: ", error.response);
+      modalRef.current.close();
+    }
+  }
+
   return {
     notes,
     isOpen,
@@ -148,5 +161,6 @@ export function useNotes() {
     handleNoteClick,
     handleEditClick,
     handleEditConfirm,
+    handleDeleteNote,
   };
 }

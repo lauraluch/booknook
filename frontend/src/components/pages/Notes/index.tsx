@@ -47,6 +47,7 @@ export const Notes: React.FC<Props> = (
     handleNoteClick,
     handleEditClick,
     handleEditConfirm,
+    handleDeleteNote,
     modalRef,
   } = useNotes();
 
@@ -97,9 +98,7 @@ export const Notes: React.FC<Props> = (
         isLoading={loading}
         isButtonDisabled={checkIfButtonIsDisabled()}
         modalRef={modalRef}
-        onDeleteConfirm={() => {
-          console.log("implementar funcao");
-        }}
+        onDeleteConfirm={handleDeleteNote}
       />
     </Container>
   );
