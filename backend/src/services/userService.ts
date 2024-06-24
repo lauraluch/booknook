@@ -51,7 +51,8 @@ export const updateUser = async (userId: number, updates: Partial<User>) => {
 export const readUserById = async (
   userId: number
 ): Promise<User | undefined> => {
-  const query = "SELECT * FROM bookuser WHERE id = ?";
+  const query =
+    "SELECT id, username, biography, creation_date, birth_date FROM bookuser WHERE id = ?";
   const result = await dbQuery(query, [userId]);
 
   if (Array.isArray(result) && result.length > 0) {

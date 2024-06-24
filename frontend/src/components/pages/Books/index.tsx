@@ -28,6 +28,10 @@ import NoteSVG from "@assets/icons/header/Note";
 import { TagSheet } from "./components/TagSheet";
 import { useTags } from "./hooks/useTags";
 import { useRouter } from "next/router";
+import SettingsSVG from "@assets/icons/header/Settings";
+import { useUserDetails } from "./hooks/useUserDetails";
+import { SettingsSheet } from "./components/SettingsSheet";
+import { IUser } from "src/types/user/IUser";
 
 interface Props {
   // Props
@@ -74,6 +78,17 @@ export const Books: React.FC<Props> = (
     checkIfButtonIsDisabled: checkIfTagButtonIsDisabled,
   } = useTags();
 
+  const {
+    userForm,
+    handleUserFormChange,
+    userSheetIsOpen,
+    userSheetStatus,
+    handleOpenUserSheet,
+    handleOutsideClickUserSheet,
+    handleEditUserClick,
+    handleEditUserConfirm,
+  } = useUserDetails();
+
   function getButtonFunction() {
     if (sheetStatus === SheetStatus.CREATING) return handleCreateBook;
     else if (sheetStatus === SheetStatus.READING) return handleEditClick;
@@ -94,6 +109,10 @@ export const Books: React.FC<Props> = (
         <HeaderItems>
           <HeaderButton onClick={handleOpenTags}>
             <TagSVG stroke={theme.colors.role.primaryDarkest} />
+          </HeaderButton>
+
+          <HeaderButton onClick={handleOpenUserSheet}>
+            <SettingsSVG stroke={theme.colors.role.primaryDarkest} />
           </HeaderButton>
         </HeaderItems>
       </Header>
@@ -145,6 +164,16 @@ export const Books: React.FC<Props> = (
         onFormChange={handleTagFormChange}
         onBackButtonClick={() => handleChangeStatus(SheetStatus.READING)}
         isButtonDisabled={checkIfTagButtonIsDisabled()}
+      />
+
+      <SettingsSheet
+        status={userSheetStatus}
+        isOpen={userSheetIsOpen}
+        onOutsideClick={handleOutsideClickUserSheet}
+        form={userForm}
+        onFormChange={handleUserFormChange}
+        onEditClick={handleEditUserClick}
+        onEditConfirm={handleEditUserConfirm}
       />
     </Container>
   );
