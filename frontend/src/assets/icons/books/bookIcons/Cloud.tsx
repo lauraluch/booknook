@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SVGProps } from "react";
-export const StarSVG = (props: SVGProps<SVGSVGElement>) => (
+export const CloudSVG = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={75}
@@ -9,16 +9,16 @@ export const StarSVG = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      fill="#FFF495"
-      stroke="#FFE500"
+      fill="#fff"
+      stroke="#C2C2C2"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={8}
-      d="m37.5 6.25 9.656 19.563 21.594 3.156-15.625 15.218 3.688 21.5L37.5 55.532 18.187 65.688l3.688-21.5L6.25 28.968l21.594-3.155L37.5 6.25Z"
+      d="M54.688 59.375H28.125A21.875 21.875 0 1 1 49.094 31.25h5.593a14.063 14.063 0 0 1 0 28.125Z"
     />
   </svg>
 );
-export const SmallStarSVG = (props: SVGProps<SVGSVGElement>) => (
+export const SmallCloudSVG = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -27,12 +27,12 @@ export const SmallStarSVG = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      fill="#FFF495"
-      stroke="#FFE500"
+      fill="#fff"
+      stroke="#C2C2C2"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"
+      d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
     />
   </svg>
 );

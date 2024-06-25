@@ -36,9 +36,9 @@ import { TagsFromBook } from "./components/TagsFromBook";
 import { ITag } from "src/types/tag/ITag";
 import NoteSVG from "@assets/icons/header/Note";
 import SmallNoteSVG from "@assets/icons/header/SmallNote";
-import { Icons } from "@components/books/Icons";
 import { MoonSVG } from "@assets/icons/books/bookIcons/Moon";
 import { getIcon } from "@services/utils/getIcon";
+import { Icons } from "@components/books/Icons";
 
 interface Props {
   isOpen: boolean;

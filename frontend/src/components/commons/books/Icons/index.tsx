@@ -1,14 +1,19 @@
-// External Libraries
 import React, { useEffect, useRef } from "react";
-
-// Components
-
-// Styles
 import { Container } from "./styles";
 import { AnimatePresence } from "framer-motion";
-import { MoonSVG, SmallMoonSVG } from "@assets/icons/books/bookIcons/Moon";
-import StarSVG from "@assets/icons/books/Star";
+import { SmallMoonSVG } from "@assets/icons/books/bookIcons/Moon";
 import { SmallStarSVG } from "@assets/icons/books/bookIcons/Star";
+import { SmallFlowerSVG } from "@assets/icons/books/bookIcons/Flower";
+import { SmallCloverSVG } from "@assets/icons/books/bookIcons/Clover";
+import { SmallLoveheartSVG } from "@assets/icons/books/bookIcons/Loveheart";
+import { SmallCherrySVG } from "@assets/icons/books/bookIcons/Cherry";
+import { SmallCloudSVG } from "@assets/icons/books/bookIcons/Cloud";
+import { SmallCrownSVG } from "@assets/icons/books/bookIcons/Crown";
+import { SmallFireSVG } from "@assets/icons/books/bookIcons/Fire";
+import { SmallBluefireSVG } from "@assets/icons/books/bookIcons/Bluefire";
+import { SmallPaintSVG } from "@assets/icons/books/bookIcons/Paint";
+import { SmallCoffeeSVG } from "@assets/icons/books/bookIcons/Coffee";
+import { SmallWandSVG } from "@assets/icons/books/bookIcons/Wand";
 import { IBook } from "src/types/book/IBook";
 
 interface Props {
@@ -58,6 +63,72 @@ export const Icons: React.FC<Props> = ({
           <SmallStarSVG
             onClick={() => {
               onFormChange("icon", "star");
+              onClickOutside();
+            }}
+          />
+          <SmallFlowerSVG
+            onClick={() => {
+              onFormChange("icon", "flower");
+              onClickOutside();
+            }}
+          />
+          <SmallCloverSVG
+            onClick={() => {
+              onFormChange("icon", "clover");
+              onClickOutside();
+            }}
+          />
+          <SmallLoveheartSVG
+            onClick={() => {
+              onFormChange("icon", "loveheart");
+              onClickOutside();
+            }}
+          />
+          <SmallCherrySVG
+            onClick={() => {
+              onFormChange("icon", "cherry");
+              onClickOutside();
+            }}
+          />
+          <SmallCloudSVG
+            onClick={() => {
+              onFormChange("icon", "cloud");
+              onClickOutside();
+            }}
+          />
+          <SmallCrownSVG
+            onClick={() => {
+              onFormChange("icon", "crown");
+              onClickOutside();
+            }}
+          />
+          <SmallFireSVG
+            onClick={() => {
+              onFormChange("icon", "fire");
+              onClickOutside();
+            }}
+          />
+          <SmallBluefireSVG
+            onClick={() => {
+              onFormChange("icon", "bluefire");
+              onClickOutside();
+            }}
+          />
+          <SmallPaintSVG
+            onClick={() => {
+              onFormChange("icon", "paint");
+              onClickOutside();
+            }}
+          />
+          <SmallCoffeeSVG
+            onClick={() => {
+              onFormChange("icon", "coffee");
+              onClickOutside();
+            }}
+          />
+          <SmallWandSVG
+            onClick={() => {
+              onFormChange("icon", "wand");
               onClickOutside();
             }}
           />

@@ -22,8 +22,8 @@ export const MoonSVG = (props: SVGProps<SVGSVGElement>) => (
 export const SmallMoonSVG = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={45}
-    height={45}
+    width={24}
+    height={24}
     fill="none"
     {...props}
   >
@@ -32,8 +32,8 @@ export const SmallMoonSVG = (props: SVGProps<SVGSVGElement>) => (
       stroke="#FFE600"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={4}
-      d="M22.5 5.625A11.932 11.932 0 1 0 39.375 22.5 16.875 16.875 0 1 1 22.5 5.625Z"
+      strokeWidth={2}
+      d="M12 3a6.364 6.364 0 1 0 9 9 9 9 0 1 1-9-9Z"
     />
   </svg>
 );

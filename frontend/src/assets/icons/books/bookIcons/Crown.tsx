@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SVGProps } from "react";
-export const StarSVG = (props: SVGProps<SVGSVGElement>) => (
+export const CrownSVG = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={75}
@@ -10,15 +10,19 @@ export const StarSVG = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill="#FFF495"
+      d="M6.25 12.5 15.625 50h43.75l9.375-37.5L50 34.375 37.5 12.5 25 34.375 6.25 12.5Zm9.375 50h43.75Z"
+    />
+    <path
       stroke="#FFE500"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={8}
-      d="m37.5 6.25 9.656 19.563 21.594 3.156-15.625 15.218 3.688 21.5L37.5 55.532 18.187 65.688l3.688-21.5L6.25 28.968l21.594-3.155L37.5 6.25Z"
+      d="M15.625 62.5h43.75M6.25 12.5 15.625 50h43.75l9.375-37.5L50 34.375 37.5 12.5 25 34.375 6.25 12.5Z"
     />
   </svg>
 );
-export const SmallStarSVG = (props: SVGProps<SVGSVGElement>) => (
+
+export const SmallCrownSVG = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
@@ -26,13 +30,13 @@ export const SmallStarSVG = (props: SVGProps<SVGSVGElement>) => (
     fill="none"
     {...props}
   >
+    <path fill="#FFF495" d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7Zm3 16h14H5Z" />
     <path
-      fill="#FFF495"
       stroke="#FFE500"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
-      d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"
+      d="M5 20h14M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7Z"
     />
   </svg>
 );
