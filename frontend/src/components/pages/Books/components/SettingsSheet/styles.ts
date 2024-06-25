@@ -51,3 +51,22 @@ export const DateContainer = styled.div`
   /* width: 100%; */
   gap: 0.25rem;
 `;
+
+export const HeaderButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 30rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background-color: ${({ theme }) => theme.colors.role.primaryLight};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.role.primarySemilight};
+  }
+
+  transition: background-color 0.3s ease;
+`;

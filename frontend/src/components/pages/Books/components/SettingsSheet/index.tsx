@@ -1,5 +1,5 @@
 // External Libraries
-import React from "react";
+import React, { useRef } from "react";
 
 // Components
 
@@ -10,6 +10,8 @@ import {
   ProfileData,
   TitleAndDescription,
   DetailsContainer,
+  TitleAndButton,
+  HeaderButton,
 } from "./styles";
 import { Sheet } from "src/components/toolkit/Sheet";
 import { Typography } from "src/components/toolkit/Typography";
@@ -22,6 +24,10 @@ import BookHeartSVG from "@assets/icons/users/BookHeart";
 import CalendarHeartSVG from "@assets/icons/users/CalendarHeart";
 import { Button } from "@components/buttons/Button";
 import { TitledInput } from "@components/inputs/TitledInput";
+import SignOutSVG from "@assets/icons/header/SignOut";
+import { useAuthContext } from "@contexts/useAuthContext";
+import { ActionModal } from "src/components/modals/ActionModal";
+import { ActionModalMethods } from "src/components/modals/ActionModal/types";
 
 interface Props {
   isOpen: boolean;
@@ -42,6 +48,8 @@ export const SettingsSheet: React.FC<Props> = ({
   onEditClick,
   onEditConfirm,
 }) => {
+  const modalRef = useRef<ActionModalMethods>(null);
+
   function renderButtonLabel() {
     if (status === SheetStatus.EDITING) return "Salvar alterações";
     return "Editar";
@@ -51,6 +59,8 @@ export const SettingsSheet: React.FC<Props> = ({
     if (status === SheetStatus.EDITING) return onEditConfirm;
     return onEditClick;
   }
+
+  const { signOut } = useAuthContext();
 
   function renderContent() {
     if (status === SheetStatus.EDITING) {
@@ -154,13 +164,19 @@ export const SettingsSheet: React.FC<Props> = ({
   return (
     <Sheet isOpen={isOpen} onOutsideClick={onOutsideClick}>
       <Container>
-        <TitleAndDescription>
-          <Typography variant="h4">Configurações</Typography>
+        <TitleAndButton>
+          <TitleAndDescription>
+            <Typography variant="h4">Configurações</Typography>
 
-          <Typography variant="b2" color={theme.colors.text.secondary}>
-            Visualize os dados do seu perfil.
-          </Typography>
-        </TitleAndDescription>
+            <Typography variant="b2" color={theme.colors.text.secondary}>
+              Visualize os dados do seu perfil.
+            </Typography>
+          </TitleAndDescription>
+
+          <HeaderButton onClick={() => modalRef.current.open()}>
+            <SignOutSVG stroke={theme.colors.role.primaryDarkest} />
+          </HeaderButton>
+        </TitleAndButton>
 
         {renderContent()}
 
@@ -170,6 +186,13 @@ export const SettingsSheet: React.FC<Props> = ({
           variant={status === SheetStatus.READING ? "tertiary" : "primary"}
         />
       </Container>
+
+      <ActionModal
+        ref={modalRef}
+        title={"Sair da conta"}
+        description={"Tem certeza que deseja sair da sua conta?"}
+        onConfirmPress={signOut}
+      />
     </Sheet>
   );
 };
