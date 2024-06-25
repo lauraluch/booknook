@@ -7,4 +7,5 @@ export type IBook = {
   favorite: boolean;
   rating?: number;
   color?: string;
+  icon?: string;
 };

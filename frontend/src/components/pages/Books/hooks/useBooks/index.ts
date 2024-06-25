@@ -66,6 +66,7 @@ export function useBooks() {
         user_id: user.userId,
         rating: form.rating || 0,
         color: form.color || "#ffffff",
+        icon: form.icon,
       };
 
       await postBook(book);
@@ -97,6 +98,7 @@ export function useBooks() {
         favorite: returnAlteredData(backupForm.favorite, form.favorite),
         rating: returnAlteredData(backupForm.rating, form.rating),
         color: returnAlteredData(backupForm.color, form.color),
+        icon: returnAlteredData(backupForm.icon, form.icon),
       };
 
       await putBook(form.id, editedBook);
@@ -121,6 +123,7 @@ export function useBooks() {
       favorite: book.favorite,
       rating: book.rating,
       color: book.color,
+      icon: book.icon,
     });
 
     setBackupForm({
@@ -132,6 +135,7 @@ export function useBooks() {
       favorite: book.favorite,
       rating: book.rating,
       color: book.color,
+      icon: book.icon,
     });
 
     setIsOpen(true);

@@ -35,6 +35,15 @@ export const Container = styled.div<Props>`
   transition: box-shadow 0.3s ease;
 `;
 
+export const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+`;
+
 export const FavoriteContainer = styled.div`
   display: flex;
   flex-direction: column;

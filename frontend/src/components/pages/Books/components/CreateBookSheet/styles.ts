@@ -81,3 +81,8 @@ export const HeaderButton = styled.div`
 
   transition: background-color 0.3s ease;
 `;
+
+export const AddIcon = styled.div`
+  display: flex;
+  align-self: center;
+`;

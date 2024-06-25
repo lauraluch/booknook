@@ -3,11 +3,12 @@ import { dbQuery } from "../repository/dbConnection";
 
 export const insertUser = async (user: User) => {
   await dbQuery(
-    "INSERT INTO bookuser (username, password, biography, creation_date, birth_date) VALUES(?, ?, ?, ?, ?)",
+    "INSERT INTO bookuser (username, password, biography, gender, creation_date, birth_date) VALUES(?, ?, ?, ?, ?, ?)",
     [
       user.username,
       user.password,
       user.biography,
+      user.gender,
       user.creation_date,
       user.birth_date,
     ]
@@ -25,7 +26,7 @@ export const insertUser = async (user: User) => {
 };
 
 export const updateUser = async (userId: number, updates: Partial<User>) => {
-  const { username, biography } = updates;
+  const { username, biography, birth_date, gender } = updates;
 
   const updateParams: any[] = [];
   let updateQuery = "UPDATE bookuser SET";
@@ -40,6 +41,16 @@ export const updateUser = async (userId: number, updates: Partial<User>) => {
     updateParams.push(biography);
   }
 
+  if (gender) {
+    updateQuery += " gender = ?,";
+    updateParams.push(gender);
+  }
+
+  if (birth_date) {
+    updateQuery += " birth_date = ?,";
+    updateParams.push(birth_date);
+  }
+
   updateQuery = updateQuery.slice(0, -1);
 
   updateQuery += " WHERE id = ?";
@@ -52,7 +63,7 @@ export const readUserById = async (
   userId: number
 ): Promise<User | undefined> => {
   const query =
-    "SELECT id, username, biography, creation_date, birth_date FROM bookuser WHERE id = ?";
+    "SELECT id, username, biography, gender, creation_date, birth_date FROM bookuser WHERE id = ?";
   const result = await dbQuery(query, [userId]);
 
   if (Array.isArray(result) && result.length > 0) {

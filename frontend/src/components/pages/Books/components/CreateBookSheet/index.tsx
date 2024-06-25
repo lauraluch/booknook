@@ -5,6 +5,7 @@ import React, { MutableRefObject, useEffect, useState } from "react";
 
 // Styles
 import {
+  AddIcon,
   ButtonsRow,
   Container,
   HeaderButton,
@@ -35,6 +36,9 @@ import { TagsFromBook } from "./components/TagsFromBook";
 import { ITag } from "src/types/tag/ITag";
 import NoteSVG from "@assets/icons/header/Note";
 import SmallNoteSVG from "@assets/icons/header/SmallNote";
+import { Icons } from "@components/books/Icons";
+import { MoonSVG } from "@assets/icons/books/bookIcons/Moon";
+import { getIcon } from "@services/utils/getIcon";
 
 interface Props {
   isOpen: boolean;
@@ -66,6 +70,7 @@ export const CreateBookSheet: React.FC<Props> = ({
   onNoteClick,
 }) => {
   const isDisabled = status === SheetStatus.READING;
+  const [iconSelectOpen, setIconSelectOpen] = useState(false);
 
   function renderTitle() {
     if (status === SheetStatus.CREATING) return "Criar um livro";
@@ -108,6 +113,18 @@ export const CreateBookSheet: React.FC<Props> = ({
             </HeaderButton>
           )}
         </TitleAndButton>
+
+        <AddIcon
+          onClick={() => {
+            if (status === SheetStatus.EDITING) setIconSelectOpen(true);
+            else return;
+          }}
+          style={{
+            cursor: status === SheetStatus.EDITING ? "pointer" : "default",
+          }}
+        >
+          {getIcon(bookForm?.icon)}
+        </AddIcon>
 
         <Rating
           stars={bookForm.rating as IRating}
@@ -220,6 +237,12 @@ export const CreateBookSheet: React.FC<Props> = ({
             onRemoveTag={handleDeleteTagFromBook}
           />
         )}
+
+        <Icons
+          isOpen={iconSelectOpen}
+          onClickOutside={() => setIconSelectOpen(false)}
+          onFormChange={onChangeForm}
+        />
       </Container>
 
       <ActionModal

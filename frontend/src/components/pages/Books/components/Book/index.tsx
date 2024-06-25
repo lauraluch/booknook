@@ -5,10 +5,11 @@ import chroma from "chroma-js";
 // Components
 
 // Styles
-import { Container, FavoriteContainer } from "./styles";
+import { Container, FavoriteContainer, IconContainer } from "./styles";
 import { IBook } from "src/types/book/IBook";
 import { Typography } from "src/components/toolkit/Typography";
 import FavoriteSVG from "@assets/icons/books/Favorite";
+import { getIcon } from "@services/utils/getIcon";
 
 interface Props {
   book: IBook;
@@ -38,6 +39,8 @@ export const Book: React.FC<Props> = ({ book, backgroundColor, onClick }) => {
           <FavoriteSVG />
         </FavoriteContainer>
       )}
+
+      <IconContainer>{getIcon(book?.icon)}</IconContainer>
 
       <Typography
         variant="d1"

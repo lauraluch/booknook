@@ -10,6 +10,7 @@ export function makeCreateBookForm(): IBook {
     favorite: false,
     rating: 0,
     color: "",
+    icon: "",
   };
 }
 

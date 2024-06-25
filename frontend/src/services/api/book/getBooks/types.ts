@@ -8,6 +8,7 @@ export type HttpGetBooksBook = {
   user_id?: number;
   rating?: number;
   color?: string;
+  icon?: string;
 };
 
 export type HttpGetBooksResponse = HttpGetBooksBook[];

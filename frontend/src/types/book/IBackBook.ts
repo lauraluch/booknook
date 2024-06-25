@@ -7,4 +7,5 @@ export interface IBackBook {
   user_id: number;
   rating?: number;
   color?: string;
+  icon?: string;
 }

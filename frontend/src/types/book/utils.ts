@@ -11,5 +11,6 @@ export function mapBookFromBackend(book: HttpGetBooksBook): IBook {
     favorite: book.favorite === 1,
     rating: book.rating,
     color: book.color,
+    icon: book.icon,
   };
 }

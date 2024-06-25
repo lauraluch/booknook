@@ -6,4 +6,5 @@ export interface HttpPutBookPayload {
   favorite?: number;
   rating?: number;
   color?: string;
+  icon?: string;
 }
