@@ -1,4 +1,4 @@
-start.js
+# start.js
 
 # FRONTEND
 /frontend/.next/
@@ -32,5 +32,5 @@ start.js
 
 # BACKEND
 /backend/.env
-/backend/db-bnk.db
+# /backend/db-bnk.db
 /backend/node_modules
